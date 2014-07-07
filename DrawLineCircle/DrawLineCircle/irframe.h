@@ -84,6 +84,7 @@ public:
     void judge_area( QPoint &pt_area );
 public:
     void set_org_sz( int width, int height ) ;
+    void judge_org_area( QPoint &pt_area );
 signals:
 
 public slots:
@@ -92,21 +93,25 @@ public slots:
 private:
     QLabel *mp_transparent_ir_label;
     QList<QString> m_list;
-    QPoint m_pt_start;
-    QPoint m_pt_middle;
     IrSlider *mp_ir_slider;
     int mn_ir_slider_value;
     QList<AnaInfo> m_list_anainfo;
     bool mb_move_type;
     bool mb_change_size;
-
+    //起始点和中间点
+    QPoint m_pt_start;
+    QPoint m_pt_middle;
+    //求鼠标便宜量
     QPoint m_press_pt;
     QPoint m_release_pt;
+    //移动点或者change size的点
+    QPoint m_pt_move_start;
+    QPoint m_pt_move_end;
+
     QString ms_type_name;
     int mn_sign_id;
     AnaMove me_ana_move;
-    QPoint m_pt_move_start;
-    QPoint m_pt_move_end;
+
 private:
     //窗口的原始size
     int mn_org_width;
