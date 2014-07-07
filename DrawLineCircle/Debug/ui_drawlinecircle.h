@@ -44,7 +44,7 @@ public:
         id_ir_frame = new IrFrame(centralWidget);
         id_ir_frame->setObjectName(QStringLiteral("id_ir_frame"));
         id_ir_frame->setGeometry(QRect(60, 40, 841, 491));
-        id_ir_frame->setFrameShape(QFrame::StyledPanel);
+        id_ir_frame->setFrameShape(QFrame::Box);
         id_ir_frame->setFrameShadow(QFrame::Raised);
         id_ir_slider = new IrSlider(id_ir_frame);
         id_ir_slider->setObjectName(QStringLiteral("id_ir_slider"));

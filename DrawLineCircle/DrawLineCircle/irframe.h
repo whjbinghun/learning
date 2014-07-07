@@ -72,18 +72,18 @@ public:
     void pt_move_ana_line( const QPoint &pt );
     void pt_move_ana_rect( const QPoint &pt );
     void pt_move_ana_circle( const QPoint &pt );
-    void pt_add_boundary( const QPoint &pt );
-    void pt_mouse_move_boundary( const QPoint &pt, QPoint &pt_move );
     void pt_move_self_boundary( QPoint &pt_start, QPoint &pt_end );
-    void pt_draw_circle_boundary( QPoint &pt_start );
     void pt_circle_move_self_boundary( QPoint &pt_circle_center, QPoint &pt_end );
-    void pt_move_self_end_boundary(const QPoint &pt, int x, int y, QPoint &pt_start, QPoint &pt_end);
-    void pt_move_self_start_boundary(const QPoint &pt, int x, int y, QPoint &pt_start, QPoint &pt_end);
 
-    void pt_add_release_boundary( const QPoint &pt, QPoint &pt_area );
+    void pt_judge_area( const QPoint &pt, QPoint &pt_area );
     void normalized_pt( QPoint &pt1, QPoint &pt2 );
     void set_cursor_pos( );
     void start_area( QPoint &pt_start, int &n_r );
+    void shape_append_list( QPoint pt );
+    void shape_move_or_change_size( QPoint pt );
+    void judge_area( QPoint &pt_area );
+public:
+    void set_org_sz( int width, int height ) ;
 signals:
 
 public slots:
@@ -107,6 +107,13 @@ private:
     AnaMove me_ana_move;
     QPoint m_pt_move_start;
     QPoint m_pt_move_end;
+private:
+    //窗口的原始size
+    int mn_org_width;
+    int mn_org_height;
+    //当前窗口的size与原始size的比例
+    float mf_sz_width;
+    float mf_sz_height;
 };
 
 #endif // IRFRAME_H
