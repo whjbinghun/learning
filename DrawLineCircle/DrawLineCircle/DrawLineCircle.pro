@@ -15,10 +15,12 @@ TEMPLATE = app
 SOURCES += main.cpp\
         drawlinecircle.cpp \
     irframe.cpp \
-    irslider.cpp
+    irslider.cpp \
+    ana_label.cpp
 
 HEADERS  += drawlinecircle.h \
     irframe.h \
-    irslider.h
+    irslider.h \
+    ana_label.h
 
 FORMS    += drawlinecircle.ui

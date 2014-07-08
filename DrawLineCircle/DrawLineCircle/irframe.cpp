@@ -87,7 +87,7 @@ void IrFrame::paintEvent( QPaintEvent *event )
 {
     QPainter draw;
     draw.begin( this );
-    draw.fillRect( 0, 0, width(), height(), QBrush( QColor( 125,125,125 ) ) );
+    draw.fillRect( 1, 1, width()-2, height()-2, QBrush( QColor( 125,125,125 ) ) );
     int n_point_area = 10;
     int n_other_area = 2;
     int n_frame_size = 4;//小框的大小
@@ -179,6 +179,7 @@ void IrFrame::paintEvent( QPaintEvent *event )
                 draw.drawRect( n_pt_start_x-n_other_area, n_pt_end_y-n_other_area, n_frame_size, n_frame_size );
                 draw.drawRect( n_pt_end_x-n_other_area, n_pt_start_y-n_other_area, n_frame_size, n_frame_size );
             }
+            //qDebug()<<"IrFrame::paintEvent"<<pt_start<<pt_end<<width()<<height();
         } else if( it->type_name == "circle" ) {
             int n_x = n_pt_end_x-n_pt_start_x;
             int n_y = n_pt_end_y-n_pt_start_y;
@@ -194,86 +195,81 @@ void IrFrame::paintEvent( QPaintEvent *event )
     }
 
     draw.setPen( Qt::red );
-    for( it=m_list_anainfo.begin(); it!=m_list_anainfo.end(); it++ ) {
-        if( it->n_sign_id == mn_sign_id ) {
-            if( ms_type_name == "point" ) {
-                draw.drawPoint( m_release_pt.x(), m_release_pt.y() );
-                draw.drawLine( QPoint(m_release_pt.x()-10,m_release_pt.y()), QPoint(m_release_pt.x()+10,m_release_pt.y()) );
-                draw.drawLine( QPoint(m_release_pt.x(), m_release_pt.y()-10), QPoint(m_release_pt.x(), m_release_pt.y()+10) );
-                if( me_ana_move!=move_null && (*it).n_sign_id == mn_sign_id ) {
-                    draw.drawRect( m_release_pt.x()-n_other_area, m_release_pt.y()-n_other_area, 4, 4 );
-                }
-            } else if( ms_type_name == "line" ) {
-                if( me_ana_move == move_self ) {
-                    draw.drawLine( m_pt_move_start, m_pt_move_end );
-                    draw.drawRect( m_pt_move_start.x()-n_other_area, m_pt_move_start.y()-n_other_area, 4, 4 );
-                    draw.drawRect( m_pt_move_end.x()-n_other_area, m_pt_move_end.y()-n_other_area, 4, 4 );
-                } else if( me_ana_move == move_left ) {
-                    draw.drawLine( m_pt_move_start, m_pt_middle );
-                    draw.drawRect( m_pt_move_start.x()-n_other_area, m_pt_move_start.y()-n_other_area, 4, 4 );
-                    draw.drawRect( m_pt_middle.x()-n_other_area, m_pt_middle.y()-n_other_area, 4, 4 );
-                } else if( me_ana_move == move_right ) {
-                    draw.drawLine( m_pt_start, m_pt_move_end );
-                    draw.drawRect( m_pt_start.x()-n_other_area, m_pt_start.y()-n_other_area, 4, 4 );
-                    draw.drawRect( m_pt_move_end.x()-n_other_area, m_pt_move_end.y()-n_other_area, 4, 4 );
-                }
-            } else if( ms_type_name == "rect" ) {
-                if( me_ana_move == move_left ) {
-                    draw.drawRect( QRect( m_pt_move_start.x(), m_pt_start.y(), m_pt_middle.x()-m_pt_move_start.x(), m_pt_middle.y()-m_pt_start.y() ));
-                } else if( me_ana_move == move_lefttop ) {
-                    draw.drawRect( QRect( m_pt_move_start.x(), m_pt_move_start.y(), m_pt_middle.x()-m_pt_move_start.x(), m_pt_middle.y()-m_pt_move_start.y() ));
-                } else if( me_ana_move == move_top ) {
-                    draw.drawRect( QRect( m_pt_start.x(), m_pt_move_start.y(), m_pt_middle.x()-m_pt_start.x(), m_pt_middle.y()-m_pt_move_start.y() ));
-                } else if( me_ana_move == move_righttop ) {  //???
-                    draw.drawRect( QRect( m_pt_start.x(), m_pt_move_start.y(), m_pt_move_end.x()-m_pt_start.x(), m_pt_middle.y()-m_pt_move_start.y() ));
-                } else if( me_ana_move == move_right ) {
-                    draw.drawRect( QRect( m_pt_start.x(), m_pt_start.y(), m_pt_move_end.x()-m_pt_start.x(), m_pt_middle.y()-m_pt_start.y() ));
-                } else if( me_ana_move == move_rightbottom ) {
-                    draw.drawRect( QRect( m_pt_start.x(), m_pt_start.y(), m_pt_move_end.x()-m_pt_start.x(), m_pt_move_end.y()-m_pt_start.y() ));
-                } else if( me_ana_move == move_bottom ) {
-                    draw.drawRect( QRect( m_pt_start.x(), m_pt_start.y(), m_pt_middle.x()-m_pt_start.x(), m_pt_move_end.y()-m_pt_start.y() ));
-                } else if( me_ana_move == move_leftbottom ) {
-                    draw.drawRect( QRect( m_pt_move_start.x(), m_pt_start.y(), m_pt_middle.x()-m_pt_move_start.x(), m_pt_move_end.y()-m_pt_start.y() ));
-                } else if( me_ana_move == move_self ) {
-                    draw.drawRect( QRect( m_pt_move_start.x(), m_pt_move_start.y(), m_pt_move_end.x()-m_pt_move_start.x(), m_pt_move_end.y()-m_pt_move_start.y() ) );
-                    draw.drawRect( m_pt_move_start.x()-n_other_area, m_pt_move_start.y()-n_other_area, 4, 4 );
-                    draw.drawRect( m_pt_move_end.x()-n_other_area, m_pt_move_end.y()-n_other_area, 4, 4 );
-                    draw.drawRect( m_pt_move_start.x()-n_other_area, m_pt_move_end.y()-n_other_area, 4, 4 );
-                    draw.drawRect( m_pt_move_end.x()-n_other_area, m_pt_move_start.y()-n_other_area, 4, 4 );
-                }
-            } else if( ms_type_name == "circle" ) {
-                int n_point_x;
-                int n_point_y;
-                int n_r;
-                if( me_ana_move == move_lefttop || me_ana_move == move_righttop ||
-                        me_ana_move == move_rightbottom || me_ana_move == move_leftbottom ) {
-                    n_point_x = m_pt_move_end.x()-m_pt_start.x();
-                    n_point_y = m_pt_move_end.y()-m_pt_start.y();
-                    n_r = (int)qSqrt( n_point_x*n_point_x + n_point_y*n_point_y );
-                    draw.drawEllipse( m_pt_start.x()-n_r, m_pt_start.y()-n_r, n_r*2, n_r*2 );
-                    draw.drawLine( m_press_pt, m_pt_start );
-                    draw.drawLine( m_pt_move_end, m_pt_start );
-                    if( me_ana_move!=move_null && (*it).n_sign_id == mn_sign_id ) {
-                        draw.drawRect( m_pt_start.x()-2-n_r, m_pt_start.y()-2, 4, 4 );
-                        draw.drawRect( m_pt_start.x()-2, m_pt_start.y()-2-n_r, 4, 4 );
-                        draw.drawRect( m_pt_start.x()-2+n_r, m_pt_start.y()-2, 4, 4 );
-                        draw.drawRect( m_pt_start.x()-2, m_pt_start.y()-2+n_r, 4, 4 );
-                    }
-                } else if( me_ana_move == move_self ) {
-                    n_point_x = m_pt_move_end.x()-m_pt_move_start.x();
-                    n_point_y = m_pt_move_end.y()-m_pt_move_start.y();
-                    n_r = (int)qSqrt( n_point_x*n_point_x + n_point_y*n_point_y );
-                    draw.drawEllipse( m_pt_move_start.x()-n_r, m_pt_move_start.y()-n_r, n_r*2, n_r*2 );
-                    if( me_ana_move!=move_null && (*it).n_sign_id == mn_sign_id ) {
-                        draw.drawRect( m_pt_move_start.x()-2-n_r, m_pt_move_start.y()-2, 4, 4 );
-                        draw.drawRect( m_pt_move_start.x()-2, m_pt_move_start.y()-2-n_r, 4, 4 );
-                        draw.drawRect( m_pt_move_start.x()-2+n_r, m_pt_move_start.y()-2, 4, 4 );
-                        draw.drawRect( m_pt_move_start.x()-2, m_pt_move_start.y()-2+n_r, 4, 4 );
-                    }
-                }
+    if( ms_type_name == "point" ) {
+        draw.drawPoint( m_release_pt.x(), m_release_pt.y() );
+        draw.drawLine( QPoint(m_release_pt.x()-n_point_area,m_release_pt.y()), QPoint(m_release_pt.x()+n_point_area,m_release_pt.y()) );
+        draw.drawLine( QPoint(m_release_pt.x(), m_release_pt.y()-n_point_area), QPoint(m_release_pt.x(), m_release_pt.y()+n_point_area) );
+        if( me_ana_move!=move_null ) {
+            draw.drawRect( m_release_pt.x()-n_other_area, m_release_pt.y()-n_other_area, 4, 4 );
+        }
+    } else if( ms_type_name == "line" ) {
+        if( me_ana_move == move_self ) {
+            draw.drawLine( m_pt_move_start, m_pt_move_end );
+            draw.drawRect( m_pt_move_start.x()-n_other_area, m_pt_move_start.y()-n_other_area, 4, 4 );
+            draw.drawRect( m_pt_move_end.x()-n_other_area, m_pt_move_end.y()-n_other_area, 4, 4 );
+        } else if( me_ana_move == move_left ) {
+            draw.drawLine( m_pt_move_start, m_pt_middle );
+            draw.drawRect( m_pt_move_start.x()-n_other_area, m_pt_move_start.y()-n_other_area, 4, 4 );
+            draw.drawRect( m_pt_middle.x()-n_other_area, m_pt_middle.y()-n_other_area, 4, 4 );
+        } else if( me_ana_move == move_right ) {
+            draw.drawLine( m_pt_start, m_pt_move_end );
+            draw.drawRect( m_pt_start.x()-n_other_area, m_pt_start.y()-n_other_area, 4, 4 );
+            draw.drawRect( m_pt_move_end.x()-n_other_area, m_pt_move_end.y()-n_other_area, 4, 4 );
+        }
+    } else if( ms_type_name == "rect" ) {
+        if( me_ana_move == move_left ) {
+            draw.drawRect( QRect( m_pt_move_start.x(), m_pt_start.y(), m_pt_middle.x()-m_pt_move_start.x(), m_pt_middle.y()-m_pt_start.y() ));
+        } else if( me_ana_move == move_lefttop ) {
+            draw.drawRect( QRect( m_pt_move_start.x(), m_pt_move_start.y(), m_pt_middle.x()-m_pt_move_start.x(), m_pt_middle.y()-m_pt_move_start.y() ));
+        } else if( me_ana_move == move_top ) {
+            draw.drawRect( QRect( m_pt_start.x(), m_pt_move_start.y(), m_pt_middle.x()-m_pt_start.x(), m_pt_middle.y()-m_pt_move_start.y() ));
+        } else if( me_ana_move == move_righttop ) {  //???
+            draw.drawRect( QRect( m_pt_start.x(), m_pt_move_start.y(), m_pt_move_end.x()-m_pt_start.x(), m_pt_middle.y()-m_pt_move_start.y() ));
+        } else if( me_ana_move == move_right ) {
+            draw.drawRect( QRect( m_pt_start.x(), m_pt_start.y(), m_pt_move_end.x()-m_pt_start.x(), m_pt_middle.y()-m_pt_start.y() ));
+        } else if( me_ana_move == move_rightbottom ) {
+            draw.drawRect( QRect( m_pt_start.x(), m_pt_start.y(), m_pt_move_end.x()-m_pt_start.x(), m_pt_move_end.y()-m_pt_start.y() ));
+        } else if( me_ana_move == move_bottom ) {
+            draw.drawRect( QRect( m_pt_start.x(), m_pt_start.y(), m_pt_middle.x()-m_pt_start.x(), m_pt_move_end.y()-m_pt_start.y() ));
+        } else if( me_ana_move == move_leftbottom ) {
+            draw.drawRect( QRect( m_pt_move_start.x(), m_pt_start.y(), m_pt_middle.x()-m_pt_move_start.x(), m_pt_move_end.y()-m_pt_start.y() ));
+        } else if( me_ana_move == move_self ) {
+            draw.drawRect( QRect( m_pt_move_start.x(), m_pt_move_start.y(), m_pt_move_end.x()-m_pt_move_start.x(), m_pt_move_end.y()-m_pt_move_start.y() ) );
+            draw.drawRect( m_pt_move_start.x()-n_other_area, m_pt_move_start.y()-n_other_area, 4, 4 );
+            draw.drawRect( m_pt_move_end.x()-n_other_area, m_pt_move_end.y()-n_other_area, 4, 4 );
+            draw.drawRect( m_pt_move_start.x()-n_other_area, m_pt_move_end.y()-n_other_area, 4, 4 );
+            draw.drawRect( m_pt_move_end.x()-n_other_area, m_pt_move_start.y()-n_other_area, 4, 4 );
+        }
+    } else if( ms_type_name == "circle" ) {
+        int n_point_x;
+        int n_point_y;
+        int n_r;
+        if( me_ana_move == move_lefttop || me_ana_move == move_righttop ||
+                me_ana_move == move_rightbottom || me_ana_move == move_leftbottom ) {
+            n_point_x = m_pt_move_end.x()-m_pt_start.x();
+            n_point_y = m_pt_move_end.y()-m_pt_start.y();
+            n_r = (int)qSqrt( n_point_x*n_point_x + n_point_y*n_point_y );
+            draw.drawEllipse( m_pt_start.x()-n_r, m_pt_start.y()-n_r, n_r*2, n_r*2 );
+            draw.drawLine( m_press_pt, m_pt_start );
+            draw.drawLine( m_pt_move_end, m_pt_start );
+            if( me_ana_move!=move_null ) {
+                draw.drawRect( m_pt_start.x()-2-n_r, m_pt_start.y()-2, 4, 4 );
+                draw.drawRect( m_pt_start.x()-2, m_pt_start.y()-2-n_r, 4, 4 );
+                draw.drawRect( m_pt_start.x()-2+n_r, m_pt_start.y()-2, 4, 4 );
+                draw.drawRect( m_pt_start.x()-2, m_pt_start.y()-2+n_r, 4, 4 );
             }
-            break;
-       }
+        } else if( me_ana_move == move_self ) {
+            n_point_x = m_pt_move_end.x()-m_pt_move_start.x();
+            n_point_y = m_pt_move_end.y()-m_pt_move_start.y();
+            n_r = (int)qSqrt( n_point_x*n_point_x + n_point_y*n_point_y );
+            draw.drawEllipse( m_pt_move_start.x()-n_r, m_pt_move_start.y()-n_r, n_r*2, n_r*2 );
+            if( me_ana_move!=move_null ) {
+                draw.drawRect( m_pt_move_start.x()-2-n_r, m_pt_move_start.y()-2, 4, 4 );
+                draw.drawRect( m_pt_move_start.x()-2, m_pt_move_start.y()-2-n_r, 4, 4 );
+                draw.drawRect( m_pt_move_start.x()-2+n_r, m_pt_move_start.y()-2, 4, 4 );
+                draw.drawRect( m_pt_move_start.x()-2, m_pt_move_start.y()-2+n_r, 4, 4 );
+            }
+        }
     }
 
 
@@ -595,88 +591,61 @@ void IrFrame::get_pt_ana_shape( AnaInfo &ana_info, const QPoint &pt )
     m_pt_middle = QPoint( (int)ana_info.point_end.x()*mf_sz_width, (int)ana_info.point_end.y()*mf_sz_height );
     judge_area( m_pt_start );
     judge_area( m_pt_middle );
+    qDebug()<<"IrFrame::get_pt_ana_shape"<<ana_info.point_start<<ana_info.point_end<<m_pt_start<<m_pt_middle<<mf_sz_width<<mf_sz_height;
 }
 
 void IrFrame::pt_move_ana_point( const QPoint &pt )
 {
     if( me_ana_move == move_self ) {
-        QList<AnaInfo>::iterator it;
-        for( it=m_list_anainfo.begin(); it!=m_list_anainfo.end(); it++ ) {
-            if( it->n_sign_id == mn_sign_id ) {
-                m_release_pt = pt;
-                pt_judge_area( pt, m_release_pt );
-                update();
-                break;
-            }
-        }
+        m_release_pt = pt;
+        pt_judge_area( pt, m_release_pt );
+        update();
     }
 }
 
 void IrFrame::pt_move_ana_line( const QPoint &pt )
 {
-    if( me_ana_move == move_left || me_ana_move == move_right || me_ana_move == move_self  ) {
-        QList<AnaInfo>::iterator it;
-        for( it=m_list_anainfo.begin(); it!=m_list_anainfo.end(); it++ ) {
-            if( it->n_sign_id == mn_sign_id ) {
-                if( me_ana_move == move_left || me_ana_move == move_right ) {
-                    m_release_pt = pt;
-                    int n_x = pt.x()-m_press_pt.x();
-                    int n_y = pt.y()-m_press_pt.y();
-                    m_pt_move_start = QPoint( m_pt_start.x()+n_x, m_pt_start.y()+n_y );
-                    m_pt_move_end = QPoint( m_pt_middle.x()+n_x, m_pt_middle.y()+n_y );
-                    //pt_move_self_boundary( m_pt_move_start, m_pt_move_end );
-                    judge_area( m_pt_move_start );
-                    judge_area( m_pt_move_end );
-                    update();
-                    break;
-                } else if( me_ana_move == move_self ) {
-                    m_release_pt = pt;
-                    int n_x = pt.x()-m_press_pt.x();
-                    int n_y = pt.y()-m_press_pt.y();
-                    m_pt_move_start = QPoint( m_pt_start.x()+n_x, m_pt_start.y()+n_y );
-                    m_pt_move_end = QPoint( m_pt_middle.x()+n_x, m_pt_middle.y()+n_y );
-                    pt_move_self_boundary( m_pt_move_start, m_pt_move_end );
-                    //judge_area( m_pt_move_start );
-                    //judge_area( m_pt_move_end );
-                    update();
-                    break;
-                }
-            }
-        }
+    if( me_ana_move == move_left || me_ana_move == move_right ) {
+        m_release_pt = pt;
+        int n_x = pt.x()-m_press_pt.x();
+        int n_y = pt.y()-m_press_pt.y();
+        m_pt_move_start = QPoint( m_pt_start.x()+n_x, m_pt_start.y()+n_y );
+        m_pt_move_end = QPoint( m_pt_middle.x()+n_x, m_pt_middle.y()+n_y );
+        judge_area( m_pt_move_start );
+        judge_area( m_pt_move_end );
+        update();
+    } else if( me_ana_move == move_self ) {
+        m_release_pt = pt;
+        int n_x = pt.x()-m_press_pt.x();
+        int n_y = pt.y()-m_press_pt.y();
+        m_pt_move_start = QPoint( m_pt_start.x()+n_x, m_pt_start.y()+n_y );
+        m_pt_move_end = QPoint( m_pt_middle.x()+n_x, m_pt_middle.y()+n_y );
+        pt_move_self_boundary( m_pt_move_start, m_pt_move_end );
+        update();
     }
 }
 
 void IrFrame::pt_move_ana_rect( const QPoint &pt )
 {
-    QList<AnaInfo>::iterator it;
-    for( it=m_list_anainfo.begin(); it!=m_list_anainfo.end(); it++ ) {
-        if( it->n_sign_id == mn_sign_id ) {
-            if( me_ana_move == move_left || me_ana_move == move_lefttop || me_ana_move == move_top ||
-                    me_ana_move == move_righttop || me_ana_move == move_right || me_ana_move == move_rightbottom ||
-                    me_ana_move == move_bottom || me_ana_move == move_leftbottom ){
-                m_release_pt = pt;
-                int n_x = pt.x()-m_press_pt.x();
-                int n_y = pt.y()-m_press_pt.y();
-                m_pt_move_start = QPoint( m_pt_start.x()+n_x, m_pt_start.y()+n_y );
-                m_pt_move_end = QPoint( m_pt_middle.x()+n_x, m_pt_middle.y()+n_y );
-                //pt_move_self_boundary( m_pt_move_start, m_pt_move_end );
-                judge_area( m_pt_move_start );
-                judge_area( m_pt_move_end );
-                update();
-                break;
-            } else if( me_ana_move == move_self ) {
-                m_release_pt = pt;
-                int n_x = pt.x()-m_press_pt.x();
-                int n_y = pt.y()-m_press_pt.y();
-                m_pt_move_start = QPoint( m_pt_start.x()+n_x, m_pt_start.y()+n_y );
-                m_pt_move_end = QPoint( m_pt_middle.x()+n_x, m_pt_middle.y()+n_y );
-                pt_move_self_boundary( m_pt_move_start, m_pt_move_end );
-                //judge_area( m_pt_move_start );
-                //judge_area( m_pt_move_end );
-                update();
-                break;
-            }
-        }
+    if( me_ana_move == move_left || me_ana_move == move_lefttop || me_ana_move == move_top ||
+            me_ana_move == move_righttop || me_ana_move == move_right || me_ana_move == move_rightbottom ||
+            me_ana_move == move_bottom || me_ana_move == move_leftbottom ){
+        m_release_pt = pt;
+        int n_x = pt.x()-m_press_pt.x();
+        int n_y = pt.y()-m_press_pt.y();
+        m_pt_move_start = QPoint( m_pt_start.x()+n_x, m_pt_start.y()+n_y );
+        m_pt_move_end = QPoint( m_pt_middle.x()+n_x, m_pt_middle.y()+n_y );
+        judge_area( m_pt_move_start );
+        judge_area( m_pt_move_end );
+        update();
+    } else if( me_ana_move == move_self ) {
+        m_release_pt = pt;
+        int n_x = pt.x()-m_press_pt.x();
+        int n_y = pt.y()-m_press_pt.y();
+        m_pt_move_start = QPoint( m_pt_start.x()+n_x, m_pt_start.y()+n_y );
+        m_pt_move_end = QPoint( m_pt_middle.x()+n_x, m_pt_middle.y()+n_y );
+        pt_move_self_boundary( m_pt_move_start, m_pt_move_end );
+        update();
     }
 }
 
@@ -684,40 +653,28 @@ void IrFrame::pt_move_ana_circle( const QPoint &pt )
 {
     if( me_ana_move == move_lefttop || me_ana_move == move_righttop ||
             me_ana_move == move_rightbottom || me_ana_move == move_leftbottom ) {
-        QList<AnaInfo>::iterator it;
-        for( it=m_list_anainfo.begin(); it!=m_list_anainfo.end(); it++ ) {
-            if( it->n_sign_id == mn_sign_id ) {
-                m_release_pt = pt;
-                int n_x = pt.x()-m_pt_start.x();
-                int n_y = pt.y()-m_pt_start.y();
-                int n_r = qSqrt( n_x*n_x+n_y*n_y );
-                int n_r_temp=0;
-                start_area( m_pt_start, n_r_temp );
-                if( n_r <= n_r_temp ) {
-                    m_pt_move_end = QPoint( m_pt_start.x()+n_r, m_pt_start.y() );
-                } else {
-                    n_r = n_r_temp;
-                    m_pt_move_end = QPoint( m_pt_start.x()+n_r, m_pt_start.y() );
-                }
+        m_release_pt = pt;
+        int n_x = pt.x()-m_pt_start.x();
+        int n_y = pt.y()-m_pt_start.y();
+        int n_r = qSqrt( n_x*n_x+n_y*n_y );
+        int n_r_temp=0;
+        start_area( m_pt_start, n_r_temp );
+        if( n_r <= n_r_temp ) {
+            m_pt_move_end = QPoint( m_pt_start.x()+n_r, m_pt_start.y() );
+        } else {
+            n_r = n_r_temp;
+            m_pt_move_end = QPoint( m_pt_start.x()+n_r, m_pt_start.y() );
+        }
 
-                update();
-                break;
-            }
-        }
+        update();
     } else if( me_ana_move == move_self ) {
-        QList<AnaInfo>::iterator it;
-        for( it=m_list_anainfo.begin(); it!=m_list_anainfo.end(); it++ ) {
-            if( it->n_sign_id == mn_sign_id ) {
-                pt_judge_area( pt, m_release_pt );
-                int n_x = pt.x()-m_press_pt.x();
-                int n_y = pt.y()-m_press_pt.y();
-                m_pt_move_start = QPoint( m_pt_start.x()+n_x, m_pt_start.y()+n_y );
-                m_pt_move_end = QPoint( m_pt_middle.x()+n_x, m_pt_middle.y()+n_y );
-                pt_circle_move_self_boundary( m_pt_move_start, m_pt_move_end );
-                update();
-                break;
-            }
-        }
+        pt_judge_area( pt, m_release_pt );
+        int n_x = pt.x()-m_press_pt.x();
+        int n_y = pt.y()-m_press_pt.y();
+        m_pt_move_start = QPoint( m_pt_start.x()+n_x, m_pt_start.y()+n_y );
+        m_pt_move_end = QPoint( m_pt_middle.x()+n_x, m_pt_middle.y()+n_y );
+        pt_circle_move_self_boundary( m_pt_move_start, m_pt_move_end );
+        update();
     }
 
 }
@@ -965,7 +922,8 @@ void IrFrame::shape_move_or_change_size( QPoint pt )
         if( mn_sign_id == it->n_sign_id ) {
             if( ms_type_name == "point" ) {
                 //pt_judge_area( pt, it->point_start );
-                it->point_start = QPoint( (int)(pt.x()/mf_sz_width+0.5), (int)(pt.y()/mf_sz_height+0.5) );
+                m_pt_start = QPoint( m_pt_start.x()+n_x, m_pt_start.y()+n_y );
+                it->point_start = QPoint( (int)m_pt_start.x()/mf_sz_width+0.5, (int)m_pt_start.y()/mf_sz_height+0.5 );
                 judge_org_area( it->point_start );
                 it->point_end = it->point_start;
             } else if( ms_type_name == "line" ) {
@@ -979,8 +937,8 @@ void IrFrame::shape_move_or_change_size( QPoint pt )
                     m_pt_middle = QPoint( m_pt_middle.x()+n_x, m_pt_middle.y()+n_y );
                     pt_move_self_boundary( m_pt_start, m_pt_middle );
                 }
-                it->point_start = QPoint( (int)m_pt_start.x()/mf_sz_width+0.5, (int)m_pt_start.y()/mf_sz_height+0.5 );
-                it->point_end = QPoint( (int)m_pt_middle.x()/mf_sz_width+0.5, (int)m_pt_middle.y()/mf_sz_height+0.5 );
+                it->point_start = QPoint( (int)(m_pt_start.x()/mf_sz_width+0.5), (int)(m_pt_start.y()/mf_sz_height+0.5) );
+                it->point_end = QPoint( (int)(m_pt_middle.x()/mf_sz_width+0.5), (int)(m_pt_middle.y()/mf_sz_height+0.5) );
                 judge_org_area( it->point_start );
                 judge_org_area( it->point_end );
             } else if( ms_type_name == "rect" ) {
@@ -1043,6 +1001,8 @@ void IrFrame::shape_move_or_change_size( QPoint pt )
 
             }
             ms_type_name = "";
+            qDebug()<<"IrFrame::shape_move_or_change_size"<<m_pt_start<<m_pt_middle\
+                      <<it->point_start<<it->point_end<<n_x<<n_y;
             break;
         }
 
