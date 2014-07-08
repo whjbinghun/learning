@@ -6,7 +6,7 @@
 #include <QDebug>
 #include <windef.h>
 
-#define LABEL_WIDTH 160
+#define LABEL_WIDTH 161
 #define LABEL_HEIGHT 40
 #define SPACE_IR  20
 #define REGIONAL_SCOPE 5
@@ -22,10 +22,10 @@ IrFrame::IrFrame(QWidget *parent) :
     ,mb_move_type( false )
     ,mb_change_size( false )
     ,ms_type_name( "" )
-    ,me_press_status( none_press_status )
     ,me_draw_status( none_draw_status )
 {
     init_ir_widget();
+    me_mouse_press_status = (Ana_Label::enum_press_status)mp_transparent_ir_label->get_mouse_press_status();
     setMouseTracking( true );
     set_cursor_pos();
     set_org_sz( 320, 240 );
@@ -37,17 +37,11 @@ IrFrame::~IrFrame()
 }
 
 void IrFrame::init_ir_widget() {
-    mp_transparent_ir_label = new QLabel( this );
+    mp_transparent_ir_label = new Ana_Label( this );
     QGraphicsOpacityEffect *effect = new QGraphicsOpacityEffect( this );
     effect->setOpacity( 0.8 );
     mp_transparent_ir_label->setGraphicsEffect( effect );
-    mp_transparent_ir_label->hide();
-
-    m_list.append( "点" );
-    m_list.append( "线" );
-    m_list.append( "框" );
-    m_list.append( "圆" );
-    qDebug()<<"RealTime:ir_list"<<m_list;
+    //mp_transparent_ir_label->hide();
 }
 
 void IrFrame::set_ir_slider( IrSlider *p_ir_slider )
@@ -91,32 +85,6 @@ void IrFrame::paintEvent( QPaintEvent *event )
     int n_point_area = 10;
     int n_other_area = 2;
     int n_frame_size = 4;//小框的大小
-
-    int n_size = m_list.size();
-    QList<QString>::iterator i;
-    int j = 0;
-    int n_width = LABEL_WIDTH/4;
-    int n_height = LABEL_HEIGHT;
-    int n_label_x = mp_transparent_ir_label->x();
-    int n_label_y = mp_transparent_ir_label->y();
-    for( i=m_list.begin(),j=0; i!=m_list.end(); i++,j++ ) {
-        if( j == 0 && me_press_status == point_status ) {
-            draw.fillRect( n_label_x+n_width*j, n_label_y, n_width, n_height, QBrush( QColor(177,1,1) ) );
-        } else if( j== 1 && me_press_status == line_status ) {
-            draw.fillRect(n_label_x+n_width*j, n_label_y, n_width, n_height, QBrush( QColor(177,1,1) ) );
-        } else if( j== 2 && me_press_status == rect_status ) {
-            draw.fillRect( n_label_x+n_width*j, n_label_y, n_width, n_height, QBrush( QColor(177,1,1) ) );
-        } else if( j== 3 && me_press_status == circle_status ) {
-            draw.fillRect( n_label_x+n_width*j,n_label_y, n_width, n_height, QBrush( QColor(177,1,1) ) );
-        } else {
-            draw.fillRect( n_label_x+n_width*j, n_label_y, n_width, n_height, QBrush( QColor(125,125,125) ) );
-        }
-
-        draw.setPen( Qt::white );
-        draw.drawText( n_label_x+n_width*j, n_label_y, n_width, n_height, Qt::AlignCenter, *i );
-        draw.setPen( Qt::black );
-        draw.drawRect( n_label_x+n_width*j, n_label_y, n_width, n_height );
-    }
 
     //新增
     switch ( me_draw_status ) {
@@ -179,7 +147,6 @@ void IrFrame::paintEvent( QPaintEvent *event )
                 draw.drawRect( n_pt_start_x-n_other_area, n_pt_end_y-n_other_area, n_frame_size, n_frame_size );
                 draw.drawRect( n_pt_end_x-n_other_area, n_pt_start_y-n_other_area, n_frame_size, n_frame_size );
             }
-            //qDebug()<<"IrFrame::paintEvent"<<pt_start<<pt_end<<width()<<height();
         } else if( it->type_name == "circle" ) {
             int n_x = n_pt_end_x-n_pt_start_x;
             int n_y = n_pt_end_y-n_pt_start_y;
@@ -288,8 +255,10 @@ void IrFrame::resizeEvent( QResizeEvent *event )
 
 void IrFrame::mousePressEvent( QMouseEvent *event )
 {
-    if ( event->button() == Qt::LeftButton ) {    
-        if ( me_press_status != none_press_status ) {
+    if ( event->button() == Qt::LeftButton ) {
+        me_mouse_press_status = (Ana_Label::enum_press_status)mp_transparent_ir_label->get_mouse_press_status();
+
+        if ( me_mouse_press_status != Ana_Label::none_press_status ) {
             draw_add_shape( QPoint( event->x(), event->y() ) );
         } else {
             AnaInfo p_ana;
@@ -307,8 +276,7 @@ void IrFrame::mousePressEvent( QMouseEvent *event )
                 }
 
             }
-
-            press_status_shape( QPoint( event->x(), event->y() ) );
+            //me_mouse_press_status = (Ana_Label::enum_press_status)mp_transparent_ir_label->get_mouse_press_status();
         }
     }
 }
@@ -383,45 +351,11 @@ void IrFrame::mouseReleaseEvent( QMouseEvent *event )
     }
 }
 
-void IrFrame::press_status_shape( QPoint pt ) {
-    //如果鼠标点击 点 线位置   ，mb_ana_status =true
-    int n_width = LABEL_WIDTH/4;
-    int i = 0;
-    for( ; i<4; i++ ) {
-        if( pt.x()>SPACE_IR+n_width*i && pt.x()<= SPACE_IR+n_width*(i+1) \
-                && pt.y()>SPACE_IR && pt.y()<=SPACE_IR+LABEL_HEIGHT ) {
-            switch ( i ) {
-            case 0:
-                me_press_status = point_status;
-                update();
-                break;
-            case 1:
-                me_press_status = line_status;
-                update();
-                break;
-            case 2:
-                me_press_status = rect_status;
-                update();
-                break;
-            case 3:
-                me_press_status = circle_status;
-                update();
-                break;
-            default:
-                me_press_status = none_press_status;
-                update();
-                break;
-            }
-        }
-    }
-}
-
 void IrFrame::draw_add_shape( QPoint pt )
 {
     pt_judge_area( pt, m_pt_start );
     m_pt_middle = pt;
-
-    me_draw_status = (enum_draw_status)me_press_status;
+    me_draw_status = (enum_draw_status)me_mouse_press_status;
 }
 
 bool IrFrame::pt_in_ana( const QPoint &pt, AnaMove &ana_move, AnaInfo &ana_info )
@@ -585,8 +519,6 @@ void IrFrame::get_pt_ana_shape( AnaInfo &ana_info, const QPoint &pt )
 {
     mn_sign_id = ana_info.n_sign_id;
     m_press_pt = pt;
-    //m_pt_start = ana_info.point_start;
-    //m_pt_middle = ana_info.point_end;
     m_pt_start = QPoint( (int)ana_info.point_start.x()*mf_sz_width, (int)ana_info.point_start.y()*mf_sz_height );
     m_pt_middle = QPoint( (int)ana_info.point_end.x()*mf_sz_width, (int)ana_info.point_end.y()*mf_sz_height );
     judge_area( m_pt_start );
@@ -886,7 +818,9 @@ void IrFrame::shape_append_list( QPoint pt )
 
     pt_judge_area( pt, anainfo.point_end );
 
-    if ( me_draw_status == draw_rect_status ) {
+    if( me_draw_status == draw_point_status ) {
+        anainfo.point_start = anainfo.point_end;
+    } else if ( me_draw_status == draw_rect_status ) {
         normalized_pt( anainfo.point_start, anainfo.point_end );
     } else if( me_draw_status == draw_circle_status ) {
         int n_x = pt.x()-m_pt_start.x();
@@ -902,6 +836,7 @@ void IrFrame::shape_append_list( QPoint pt )
 
         }
     }
+
     anainfo.point_start = QPoint( (int)(anainfo.point_start.x()/mf_sz_width+0.5), (int)(anainfo.point_start.y()/mf_sz_height+0.5) );
     anainfo.point_end = QPoint( (int)(anainfo.point_end.x()/mf_sz_width+0.5), (int)(anainfo.point_end.y()/mf_sz_height+0.5) );
     judge_org_area( anainfo.point_start );
@@ -910,7 +845,8 @@ void IrFrame::shape_append_list( QPoint pt )
     m_list_anainfo.append( anainfo );
 
     me_draw_status = none_draw_status;
-    me_press_status = none_press_status;
+    me_mouse_press_status = Ana_Label::none_press_status;
+    mp_transparent_ir_label->set_mouse_press_status( me_mouse_press_status );
 }
 
 void IrFrame::shape_move_or_change_size( QPoint pt )
@@ -922,7 +858,8 @@ void IrFrame::shape_move_or_change_size( QPoint pt )
         if( mn_sign_id == it->n_sign_id ) {
             if( ms_type_name == "point" ) {
                 //pt_judge_area( pt, it->point_start );
-                m_pt_start = QPoint( m_pt_start.x()+n_x, m_pt_start.y()+n_y );
+                //m_pt_start = QPoint( m_pt_start.x()+n_x, m_pt_start.y()+n_y );
+                pt_judge_area( QPoint( m_pt_start.x()+n_x, m_pt_start.y()+n_y ), m_pt_start );
                 it->point_start = QPoint( (int)m_pt_start.x()/mf_sz_width+0.5, (int)m_pt_start.y()/mf_sz_height+0.5 );
                 judge_org_area( it->point_start );
                 it->point_end = it->point_start;

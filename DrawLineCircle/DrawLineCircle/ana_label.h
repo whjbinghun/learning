@@ -20,10 +20,13 @@ public:
     } me_press_status;
     void init_ir_widget();
     void paintEvent( QPaintEvent *event );
+    void resizeEvent( QResizeEvent *event );
     void mousePressEvent( QMouseEvent *event );
+    void mouseReleaseEvent( QMouseEvent *event );
     void press_status_shape( QPoint pt );
 
     enum_press_status get_mouse_press_status();
+    void set_mouse_press_status( enum_press_status e_press_status );
 signals:
 
 public slots:

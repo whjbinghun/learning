@@ -8,6 +8,7 @@
 #include <QSlider>
 #include "irslider.h"
 #include <QMap>
+#include "ana_label.h"
 
 typedef struct {
     int n_sign_id;
@@ -36,13 +37,13 @@ public:
     explicit IrFrame(QWidget *parent = 0);
     ~IrFrame();
 public:
-    enum enum_press_status{
+    /*enum enum_press_status{
         none_press_status = 0,
         point_status = 1,
         line_status = 2,
         rect_status = 3,
         circle_status = 4
-    } me_press_status;
+    } me_press_status;*/
     enum enum_draw_status{
         none_draw_status = 0,
         draw_point_status = 1,
@@ -59,7 +60,6 @@ public:
     void init_ir_widget();
     void set_ir_slider( IrSlider *p_ir_slider );
 
-    void press_status_shape( QPoint pt );
     void draw_add_shape( QPoint pt );
 
     bool pt_in_ana( const QPoint &pt, AnaMove &ana_move, AnaInfo &ana_info );
@@ -91,8 +91,7 @@ public slots:
     void slot_slider_value();
     void slot_value_change( int n_pos );
 private:
-    QLabel *mp_transparent_ir_label;
-    QList<QString> m_list;
+    Ana_Label *mp_transparent_ir_label;
     IrSlider *mp_ir_slider;
     int mn_ir_slider_value;
     QList<AnaInfo> m_list_anainfo;
@@ -112,6 +111,7 @@ private:
     int mn_sign_id;
     AnaMove me_ana_move;
 
+    enum Ana_Label::enum_press_status me_mouse_press_status;
 private:
     //窗口的原始size
     int mn_org_width;

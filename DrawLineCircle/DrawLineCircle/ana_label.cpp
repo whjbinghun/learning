@@ -7,6 +7,7 @@ Ana_Label::Ana_Label(QWidget *parent) :
     QLabel(parent)
 {
     init_ir_widget();
+    me_press_status = none_press_status;
 }
 
 Ana_Label::~Ana_Label()
@@ -20,6 +21,11 @@ void Ana_Label::init_ir_widget() {
     m_list.append( "圆" );
 }
 void Ana_Label::mousePressEvent( QMouseEvent *event )
+{
+
+}
+
+void Ana_Label::mouseReleaseEvent( QMouseEvent *event )
 {
     if ( event->button() == Qt::LeftButton ) {
         press_status_shape( QPoint( event->x(), event->y() ) );
@@ -80,20 +86,30 @@ void Ana_Label::paintEvent( QPaintEvent *event )
         } else if( j== 3 && me_press_status == circle_status ) {
             draw.fillRect( +n_width*j, 0, n_width, n_height, QBrush( QColor(177,1,1) ) );
         } else {
-            draw.fillRect( n_width*j, 0, n_width, n_height, QBrush( QColor(125,125,125) ) );
+            draw.fillRect( n_width*j, 0, n_width, n_height, QBrush( QColor(166,166,166) ) );
         }
 
         draw.setPen( Qt::white );
         draw.drawText( n_width*j, 0, n_width, n_height, Qt::AlignCenter, *i );
         draw.setPen( Qt::black );
-        draw.drawRect( n_width*j, 0, n_width, n_height );
+        draw.drawRect( n_width*j, 0, n_width, n_height-1 );
 
     }
 
     draw.end();
 }
 
+void Ana_Label::resizeEvent( QResizeEvent *event )
+{
+
+}
+
 Ana_Label::enum_press_status Ana_Label::get_mouse_press_status()
 {
     return me_press_status;
+}
+
+void Ana_Label::set_mouse_press_status( enum_press_status e_press_status )
+{
+    me_press_status = e_press_status;
 }
