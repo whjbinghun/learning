@@ -1,4 +1,5 @@
 #include "irslider.h"
+#include <QDebug>
 
 #define POS_VALUE 6
 
@@ -8,6 +9,7 @@ IrSlider::IrSlider(QWidget *parent) :
     ,mb_value_change_status( false )
 {
     this->setOrientation( Qt::Horizontal );
+    setTracking( true );
 }
 
 IrSlider::~IrSlider()
@@ -20,9 +22,17 @@ void IrSlider::mousePressEvent( QMouseEvent *event )
     if ( event->button() == Qt::LeftButton && this->isEnabled() ) {
         mb_value_change_status = true;
         int dur = maximum() - minimum();
-        mn_pos = minimum() + dur * ( (double)event->x() / width() );
+        int n_width = width()-10;
+        int n_x = event->x()-5;
+        if( n_x >= n_width ) {
+            n_x = n_width;
+        } else if( n_x < 0 ) {
+            n_x = 0;
+        }
+        mn_pos = minimum() + dur * ( (double)n_x / n_width );
+        qDebug()<<"IrSlider::mousePressEvent"<< event->x()<<width()<<sliderPosition()<<mn_pos;
         if( mn_pos != this->sliderPosition() ) {
-            setValue( mn_pos );
+            //setValue( mn_pos );
             emit signal_value_change( mn_pos );
         }
     }
@@ -30,14 +40,20 @@ void IrSlider::mousePressEvent( QMouseEvent *event )
 
 void IrSlider::mouseMoveEvent( QMouseEvent *event )
 {
-    /*
-        int dur = maximum() - minimum();
-        mn_pos = minimum() + dur * ( (double)event->x() / width() );
-        if( mn_pos != this->sliderPosition() ) {
-            setValue( mn_pos );
-        }
-    */
-
+    int dur = maximum() - minimum();
+    int n_width = width()-10;
+    int n_x = event->x()-5;
+    if( n_x >= n_width ) {
+        n_x = n_width;
+    } else if( n_x < 0 ) {
+        n_x = 0;
+    }
+    mn_pos = minimum() + dur * ( (double)n_x/ n_width );
+    qDebug()<<"IrSlider::mouseMoveEvent"<< event->x()<<width()<<sliderPosition()<<mn_pos;
+    if( mn_pos != this->sliderPosition() ) {
+        //setValue( mn_pos );
+        emit signal_value_change( mn_pos );
+    }
 }
 
 void IrSlider::mouseReleaseEvent( QMouseEvent *event )

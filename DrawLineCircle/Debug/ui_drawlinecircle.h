@@ -16,6 +16,7 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QSlider>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
@@ -30,6 +31,7 @@ public:
     QWidget *centralWidget;
     IrFrame *id_ir_frame;
     IrSlider *id_ir_slider;
+    QSlider *id_slider;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -48,8 +50,14 @@ public:
         id_ir_frame->setFrameShadow(QFrame::Raised);
         id_ir_slider = new IrSlider(id_ir_frame);
         id_ir_slider->setObjectName(QStringLiteral("id_ir_slider"));
-        id_ir_slider->setGeometry(QRect(110, 330, 381, 21));
+        id_ir_slider->setGeometry(QRect(110, 330, 400, 20));
+        id_ir_slider->setMaximum(100);
+        id_ir_slider->setSliderPosition(0);
         id_ir_slider->setOrientation(Qt::Horizontal);
+        id_slider = new QSlider(id_ir_frame);
+        id_slider->setObjectName(QStringLiteral("id_slider"));
+        id_slider->setGeometry(QRect(110, 390, 400, 20));
+        id_slider->setOrientation(Qt::Horizontal);
         DrawLineCircle->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(DrawLineCircle);
         menuBar->setObjectName(QStringLiteral("menuBar"));

@@ -52,13 +52,18 @@ void IrFrame::set_ir_slider( IrSlider *p_ir_slider )
     //在拖动条上按一下改变的值
     //mp_slider_play->setPageStep( 10 );
     //设置显示刻度的位置
-    mp_ir_slider->setTickPosition( QSlider::TicksRight );
+    //mp_ir_slider->setTickPosition( QSlider::TicksRight );
+    //设置刻度间隔
+    mp_ir_slider->setTickInterval( 1 );
+    //设置滑动条控件的值
+    mp_ir_slider->setValue( 100 );
     connect( mp_ir_slider, SIGNAL( signal_value_change(int) ), this, SLOT( slot_value_change(int) ) );
     QTimer *timer = new QTimer( this );
     //开始运行定时器，定时时间间隔为1000ms
     connect( timer, SIGNAL( timeout() ), this, SLOT( slot_slider_value() ) );
     timer->start( 50 );
     //将定时器超时信号与槽(功能函数)联系起来
+
 }
 
 void IrFrame::slot_slider_value()
@@ -66,8 +71,9 @@ void IrFrame::slot_slider_value()
     static int n = 0;
     if( mp_ir_slider->get_value_status() ) {//按下
         n = mn_ir_slider_value;
+        mp_ir_slider->setValue( n );
     } else {
-        n = ++n>100?0:n;
+        n = ++n>400?0:n;
         mp_ir_slider->setValue( n );
     }
 }
@@ -163,11 +169,11 @@ void IrFrame::paintEvent( QPaintEvent *event )
 
     draw.setPen( Qt::red );
     if( ms_type_name == "point" ) {
-        draw.drawPoint( m_release_pt.x(), m_release_pt.y() );
-        draw.drawLine( QPoint(m_release_pt.x()-n_point_area,m_release_pt.y()), QPoint(m_release_pt.x()+n_point_area,m_release_pt.y()) );
-        draw.drawLine( QPoint(m_release_pt.x(), m_release_pt.y()-n_point_area), QPoint(m_release_pt.x(), m_release_pt.y()+n_point_area) );
+        draw.drawPoint( m_pt_move_end.x(), m_pt_move_end.y() );
+        draw.drawLine( QPoint(m_pt_move_end.x()-n_point_area,m_pt_move_end.y()), QPoint(m_pt_move_end.x()+n_point_area,m_pt_move_end.y()) );
+        draw.drawLine( QPoint(m_pt_move_end.x(), m_pt_move_end.y()-n_point_area), QPoint(m_pt_move_end.x(), m_pt_move_end.y()+n_point_area) );
         if( me_ana_move!=move_null ) {
-            draw.drawRect( m_release_pt.x()-n_other_area, m_release_pt.y()-n_other_area, 4, 4 );
+            draw.drawRect( m_pt_move_end.x()-n_other_area, m_pt_move_end.y()-n_other_area, 4, 4 );
         }
     } else if( ms_type_name == "line" ) {
         if( me_ana_move == move_self ) {
@@ -275,6 +281,7 @@ void IrFrame::mousePressEvent( QMouseEvent *event )
                     get_pt_ana_shape( p_ana, QPoint( event->x(), event->y() ) );
                 }
 
+                update();
             }
             //me_mouse_press_status = (Ana_Label::enum_press_status)mp_transparent_ir_label->get_mouse_press_status();
         }
@@ -523,6 +530,8 @@ void IrFrame::get_pt_ana_shape( AnaInfo &ana_info, const QPoint &pt )
     m_pt_middle = QPoint( (int)ana_info.point_end.x()*mf_sz_width, (int)ana_info.point_end.y()*mf_sz_height );
     judge_area( m_pt_start );
     judge_area( m_pt_middle );
+    m_pt_move_start = m_pt_start;
+    m_pt_move_end = m_pt_middle;
     qDebug()<<"IrFrame::get_pt_ana_shape"<<ana_info.point_start<<ana_info.point_end<<m_pt_start<<m_pt_middle<<mf_sz_width<<mf_sz_height;
 }
 
@@ -531,6 +540,14 @@ void IrFrame::pt_move_ana_point( const QPoint &pt )
     if( me_ana_move == move_self ) {
         m_release_pt = pt;
         pt_judge_area( pt, m_release_pt );
+
+        int n_x = pt.x()-m_press_pt.x();
+        int n_y = pt.y()-m_press_pt.y();
+        m_pt_move_start = QPoint( m_pt_start.x()+n_x, m_pt_start.y()+n_y );
+        m_pt_move_end = QPoint( m_pt_middle.x()+n_x, m_pt_middle.y()+n_y );
+        judge_area( m_pt_move_start );
+        judge_area( m_pt_move_end );
+
         update();
     }
 }
