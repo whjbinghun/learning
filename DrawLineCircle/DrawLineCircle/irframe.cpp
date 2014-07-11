@@ -23,6 +23,8 @@ IrFrame::IrFrame(QWidget *parent) :
     ,mb_change_size( false )
     ,ms_type_name( "" )
     ,me_draw_status( none_draw_status )
+    ,mp_delete_ana_label( NULL )
+    ,mb_delete_status( false )
 {
     init_ir_widget();
     me_mouse_press_status = (Ana_Label::enum_press_status)mp_transparent_ir_label->get_mouse_press_status();
@@ -42,6 +44,11 @@ void IrFrame::init_ir_widget() {
     effect->setOpacity( 0.8 );
     mp_transparent_ir_label->setGraphicsEffect( effect );
     //mp_transparent_ir_label->hide();
+    mp_delete_ana_label = new DeleteLabel( this );
+    mp_delete_ana_label->setGraphicsEffect( effect );
+
+    mp_transparent_ir_label->set_delete_label( mp_delete_ana_label );
+    mp_delete_ana_label->set_ana_label( mp_transparent_ir_label );
 }
 
 void IrFrame::set_ir_slider( IrSlider *p_ir_slider )
@@ -251,21 +258,25 @@ void IrFrame::paintEvent( QPaintEvent *event )
 
 void IrFrame::resizeEvent( QResizeEvent *event )
 {
-    //setStyleSheet( "border:1px solid black" );
-
     mp_transparent_ir_label->move( SPACE_IR, SPACE_IR );
     mp_transparent_ir_label->resize( LABEL_WIDTH, LABEL_HEIGHT );
     mf_sz_width = width()/(float)mn_org_width;
     mf_sz_height = height()/(float)mn_org_height;
+
+    mp_delete_ana_label->move( width()-SPACE_IR*2-1, SPACE_IR );
+    mp_delete_ana_label->resize( LABEL_HEIGHT, LABEL_HEIGHT );
+    mp_delete_ana_label->setStyleSheet( "border:1px solid black" );
 }
 
 void IrFrame::mousePressEvent( QMouseEvent *event )
 {
     if ( event->button() == Qt::LeftButton ) {
-        me_mouse_press_status = (Ana_Label::enum_press_status)mp_transparent_ir_label->get_mouse_press_status();
-
+        //delete_ana_shape( QPoint( event->x(), event->y() ) );
+        me_mouse_press_status = ( Ana_Label::enum_press_status )mp_transparent_ir_label->get_mouse_press_status();
         if ( me_mouse_press_status != Ana_Label::none_press_status ) {
             draw_add_shape( QPoint( event->x(), event->y() ) );
+            setCursor( Qt::ArrowCursor );
+            update();
         } else {
             AnaInfo p_ana;
             bool b_in_ana = pt_in_ana( QPoint( event->x(), event->y()), me_ana_move, p_ana );
@@ -290,6 +301,7 @@ void IrFrame::mousePressEvent( QMouseEvent *event )
 
 void IrFrame::mouseMoveEvent( QMouseEvent *event )
 {
+    delete_ana_shape( QPoint( event->x(), event->y() ) );
     QPoint pt_cursor = QPoint( event->x(), event->y() );
 
     switch ( me_draw_status ) {
@@ -354,6 +366,22 @@ void IrFrame::mouseReleaseEvent( QMouseEvent *event )
             shape_move_or_change_size( QPoint( event->x(), event->y() ) );
             update();
 
+        }
+
+        if( mb_delete_status ) {
+            //在点、线 上点击鼠标，则删除该图形
+            AnaInfo p_ana;
+            bool b_in_ana = pt_in_ana( QPoint( event->x(), event->y() ), me_ana_move, p_ana );
+
+            if ( b_in_ana ) {
+                delete_list_pt( p_ana );
+            }
+            setCursor( Qt::ArrowCursor );
+            mb_delete_status = false;
+            mp_delete_ana_label->set_delete_status( mb_delete_status );
+            //向服务器发送删除
+
+            update();
         }
     }
 }
@@ -984,3 +1012,31 @@ void IrFrame::judge_org_area( QPoint &pt_area )
         pt_area.setY( height() );
     }
 }
+
+void IrFrame::delete_ana_shape( QPoint pt )
+{
+    mb_delete_status = mp_delete_ana_label->get_delete_status();
+
+    if( mb_delete_status ) {
+        setCursor( Qt::CrossCursor );
+        update();
+    }
+}
+
+void IrFrame::delete_list_pt( AnaInfo ana_info )
+{
+    //m_list_anainfo.removeOne( ana_info );
+
+    QList<AnaInfo>::iterator it;
+    int j = 0;
+    for( it = m_list_anainfo.begin(), j=0; it!=m_list_anainfo.end(); it++, j++ ) {
+        if( ana_info.n_sign_id == it->n_sign_id ) {
+            m_list_anainfo.removeAt( j );
+            break;
+        }
+    }
+}
+
+
+
+

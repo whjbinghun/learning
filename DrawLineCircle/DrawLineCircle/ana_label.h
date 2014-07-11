@@ -4,6 +4,8 @@
 #include <QLabel>
 #include <QMouseEvent>
 
+class DeleteLabel;
+
 class Ana_Label : public QLabel
 {
     Q_OBJECT
@@ -22,18 +24,20 @@ public:
     void paintEvent( QPaintEvent *event );
     void resizeEvent( QResizeEvent *event );
     void mousePressEvent( QMouseEvent *event );
+    void mouseMoveEvent( QMouseEvent *event );
     void mouseReleaseEvent( QMouseEvent *event );
     void press_status_shape( QPoint pt );
 
     enum_press_status get_mouse_press_status();
     void set_mouse_press_status( enum_press_status e_press_status );
+    void set_delete_label( DeleteLabel *p_delete_label );
 signals:
 
 public slots:
 
 private:
-
     QList<QString> m_list;
+    DeleteLabel *mp_delete_label;
 };
 
 #endif // ANA_LABEL_H

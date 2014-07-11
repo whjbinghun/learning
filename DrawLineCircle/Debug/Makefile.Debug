@@ -47,19 +47,25 @@ SOURCES       = ..\DrawLineCircle\main.cpp \
 		..\DrawLineCircle\drawlinecircle.cpp \
 		..\DrawLineCircle\irframe.cpp \
 		..\DrawLineCircle\irslider.cpp \
-		..\DrawLineCircle\ana_label.cpp debug\moc_drawlinecircle.cpp \
+		..\DrawLineCircle\ana_label.cpp \
+		..\DrawLineCircle\deletelabel.cpp debug\qrc_image.cpp \
+		debug\moc_drawlinecircle.cpp \
 		debug\moc_irframe.cpp \
 		debug\moc_irslider.cpp \
-		debug\moc_ana_label.cpp
+		debug\moc_ana_label.cpp \
+		debug\moc_deletelabel.cpp
 OBJECTS       = debug/main.o \
 		debug/drawlinecircle.o \
 		debug/irframe.o \
 		debug/irslider.o \
 		debug/ana_label.o \
+		debug/deletelabel.o \
+		debug/qrc_image.o \
 		debug/moc_drawlinecircle.o \
 		debug/moc_irframe.o \
 		debug/moc_irslider.o \
-		debug/moc_ana_label.o
+		debug/moc_ana_label.o \
+		debug/moc_deletelabel.o
 
 DIST          = 
 QMAKE_TARGET  = DrawLineCircle
@@ -89,7 +95,7 @@ first: all
 all: Makefile.Debug  $(DESTDIR_TARGET)
 
 $(DESTDIR_TARGET): ui_drawlinecircle.h $(OBJECTS) 
-	$(LINKER) $(LFLAGS) -o $(DESTDIR_TARGET) $(OBJECTS)  $(LIBS)
+	$(LINKER) $(LFLAGS) -o $(DESTDIR_TARGET) object_script.DrawLineCircle.Debug  $(LIBS)
 
 qmake: FORCE
 	@$(QMAKE) -spec win32-g++ CONFIG+=debug CONFIG+=declarative_debug CONFIG+=qml_debug -o Makefile.Debug ..\DrawLineCircle\DrawLineCircle.pro
@@ -97,10 +103,10 @@ qmake: FORCE
 qmake_all: FORCE
 
 dist:
-	$(ZIP) DrawLineCircle.zip $(SOURCES) $(DIST) ..\DrawLineCircle\DrawLineCircle.pro D:\Qt5\5.2.1\mingw48_32\mkspecs\features\spec_pre.prf D:\Qt5\5.2.1\mingw48_32\mkspecs\qdevice.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\features\device_config.prf D:\Qt5\5.2.1\mingw48_32\mkspecs\common\shell-win32.conf D:\Qt5\5.2.1\mingw48_32\mkspecs\qconfig.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_axbase.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_axbase_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_axcontainer.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_axcontainer_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_axserver.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_axserver_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_bluetooth.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_bluetooth_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_bootstrap_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_clucene_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_concurrent.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_concurrent_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_core.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_core_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_declarative.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_declarative_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_designer.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_designer_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_designercomponents_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_gui.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_gui_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_help.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_help_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_multimedia.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_multimedia_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_multimediawidgets.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_multimediawidgets_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_network.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_network_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_nfc.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_nfc_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_opengl.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_opengl_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_openglextensions.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_openglextensions_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_platformsupport_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_positioning.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_positioning_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_printsupport.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_printsupport_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_qml.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_qml_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_qmldevtools_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_qmltest.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_qmltest_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_quick.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_quick_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_quickparticles_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_script.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_script_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_scripttools.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_scripttools_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_sensors.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_sensors_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_serialport.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_serialport_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_sql.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_sql_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_svg.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_svg_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_testlib.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_testlib_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_uitools.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_uitools_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_webkit.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_webkit_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_webkitwidgets.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_webkitwidgets_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_widgets.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_widgets_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_winextras.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_winextras_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_xml.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_xml_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_xmlpatterns.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_xmlpatterns_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\features\qt_functions.prf D:\Qt5\5.2.1\mingw48_32\mkspecs\features\qt_config.prf D:\Qt5\5.2.1\mingw48_32\mkspecs\win32-g++\qmake.conf D:\Qt5\5.2.1\mingw48_32\mkspecs\features\spec_post.prf D:\Qt5\5.2.1\mingw48_32\mkspecs\features\exclusive_builds.prf D:\Qt5\5.2.1\mingw48_32\mkspecs\features\default_pre.prf D:\Qt5\5.2.1\mingw48_32\mkspecs\features\win32\default_pre.prf D:\Qt5\5.2.1\mingw48_32\mkspecs\features\resolve_config.prf D:\Qt5\5.2.1\mingw48_32\mkspecs\features\exclusive_builds_post.prf D:\Qt5\5.2.1\mingw48_32\mkspecs\features\default_post.prf D:\Qt5\5.2.1\mingw48_32\mkspecs\features\build_pass.prf D:\Qt5\5.2.1\mingw48_32\mkspecs\features\qml_debug.prf D:\Qt5\5.2.1\mingw48_32\mkspecs\features\declarative_debug.prf D:\Qt5\5.2.1\mingw48_32\mkspecs\features\win32\rtti.prf D:\Qt5\5.2.1\mingw48_32\mkspecs\features\warn_on.prf D:\Qt5\5.2.1\mingw48_32\mkspecs\features\qt.prf D:\Qt5\5.2.1\mingw48_32\mkspecs\features\resources.prf D:\Qt5\5.2.1\mingw48_32\mkspecs\features\moc.prf D:\Qt5\5.2.1\mingw48_32\mkspecs\features\win32\opengl.prf D:\Qt5\5.2.1\mingw48_32\mkspecs\features\uic.prf D:\Qt5\5.2.1\mingw48_32\mkspecs\features\win32\windows.prf D:\Qt5\5.2.1\mingw48_32\mkspecs\features\testcase_targets.prf D:\Qt5\5.2.1\mingw48_32\mkspecs\features\exceptions.prf D:\Qt5\5.2.1\mingw48_32\mkspecs\features\yacc.prf D:\Qt5\5.2.1\mingw48_32\mkspecs\features\lex.prf ..\DrawLineCircle\DrawLineCircle.pro D:/Qt5/5.2.1/mingw48_32/lib/Qt5Widgetsd.prl D:/Qt5/5.2.1/mingw48_32/lib/Qt5Guid.prl D:/Qt5/5.2.1/mingw48_32/lib/Qt5Cored.prl  RESOURCES HEADERS SOURCES OBJECTIVE_SOURCES FORMS YACCSOURCES YACCSOURCES LEXSOURCES 
+	$(ZIP) DrawLineCircle.zip $(SOURCES) $(DIST) ..\DrawLineCircle\DrawLineCircle.pro D:\Qt5\5.2.1\mingw48_32\mkspecs\features\spec_pre.prf D:\Qt5\5.2.1\mingw48_32\mkspecs\qdevice.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\features\device_config.prf D:\Qt5\5.2.1\mingw48_32\mkspecs\common\shell-win32.conf D:\Qt5\5.2.1\mingw48_32\mkspecs\qconfig.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_axbase.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_axbase_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_axcontainer.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_axcontainer_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_axserver.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_axserver_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_bluetooth.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_bluetooth_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_bootstrap_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_clucene_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_concurrent.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_concurrent_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_core.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_core_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_declarative.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_declarative_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_designer.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_designer_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_designercomponents_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_gui.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_gui_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_help.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_help_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_multimedia.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_multimedia_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_multimediawidgets.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_multimediawidgets_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_network.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_network_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_nfc.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_nfc_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_opengl.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_opengl_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_openglextensions.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_openglextensions_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_platformsupport_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_positioning.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_positioning_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_printsupport.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_printsupport_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_qml.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_qml_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_qmldevtools_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_qmltest.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_qmltest_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_quick.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_quick_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_quickparticles_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_script.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_script_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_scripttools.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_scripttools_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_sensors.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_sensors_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_serialport.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_serialport_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_sql.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_sql_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_svg.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_svg_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_testlib.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_testlib_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_uitools.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_uitools_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_webkit.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_webkit_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_webkitwidgets.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_webkitwidgets_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_widgets.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_widgets_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_winextras.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_winextras_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_xml.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_xml_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_xmlpatterns.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\modules\qt_lib_xmlpatterns_private.pri D:\Qt5\5.2.1\mingw48_32\mkspecs\features\qt_functions.prf D:\Qt5\5.2.1\mingw48_32\mkspecs\features\qt_config.prf D:\Qt5\5.2.1\mingw48_32\mkspecs\win32-g++\qmake.conf D:\Qt5\5.2.1\mingw48_32\mkspecs\features\spec_post.prf D:\Qt5\5.2.1\mingw48_32\mkspecs\features\exclusive_builds.prf D:\Qt5\5.2.1\mingw48_32\mkspecs\features\default_pre.prf D:\Qt5\5.2.1\mingw48_32\mkspecs\features\win32\default_pre.prf D:\Qt5\5.2.1\mingw48_32\mkspecs\features\resolve_config.prf D:\Qt5\5.2.1\mingw48_32\mkspecs\features\exclusive_builds_post.prf D:\Qt5\5.2.1\mingw48_32\mkspecs\features\default_post.prf D:\Qt5\5.2.1\mingw48_32\mkspecs\features\build_pass.prf D:\Qt5\5.2.1\mingw48_32\mkspecs\features\qml_debug.prf D:\Qt5\5.2.1\mingw48_32\mkspecs\features\declarative_debug.prf D:\Qt5\5.2.1\mingw48_32\mkspecs\features\win32\rtti.prf D:\Qt5\5.2.1\mingw48_32\mkspecs\features\warn_on.prf D:\Qt5\5.2.1\mingw48_32\mkspecs\features\qt.prf D:\Qt5\5.2.1\mingw48_32\mkspecs\features\resources.prf D:\Qt5\5.2.1\mingw48_32\mkspecs\features\moc.prf D:\Qt5\5.2.1\mingw48_32\mkspecs\features\win32\opengl.prf D:\Qt5\5.2.1\mingw48_32\mkspecs\features\uic.prf D:\Qt5\5.2.1\mingw48_32\mkspecs\features\win32\windows.prf D:\Qt5\5.2.1\mingw48_32\mkspecs\features\testcase_targets.prf D:\Qt5\5.2.1\mingw48_32\mkspecs\features\exceptions.prf D:\Qt5\5.2.1\mingw48_32\mkspecs\features\yacc.prf D:\Qt5\5.2.1\mingw48_32\mkspecs\features\lex.prf ..\DrawLineCircle\DrawLineCircle.pro ..\DrawLineCircle\image.qrc D:/Qt5/5.2.1/mingw48_32/lib/Qt5Widgetsd.prl D:/Qt5/5.2.1/mingw48_32/lib/Qt5Guid.prl D:/Qt5/5.2.1/mingw48_32/lib/Qt5Cored.prl  RESOURCES HEADERS SOURCES OBJECTIVE_SOURCES FORMS YACCSOURCES YACCSOURCES LEXSOURCES 
 
 clean: compiler_clean 
-	-$(DEL_FILE) debug\main.o debug\drawlinecircle.o debug\irframe.o debug\irslider.o debug\ana_label.o debug\moc_drawlinecircle.o debug\moc_irframe.o debug\moc_irslider.o debug\moc_ana_label.o
+	-$(DEL_FILE) debug\main.o debug\drawlinecircle.o debug\irframe.o debug\irslider.o debug\ana_label.o debug\deletelabel.o debug\qrc_image.o debug\moc_drawlinecircle.o debug\moc_irframe.o debug\moc_irslider.o debug\moc_ana_label.o debug\moc_deletelabel.o
 
 distclean: clean
 	-$(DEL_FILE) $(DESTDIR_TARGET)
@@ -112,11 +118,16 @@ mocables: compiler_moc_header_make_all compiler_moc_source_make_all
 
 check: first
 
-compiler_rcc_make_all:
+compiler_rcc_make_all: debug/qrc_image.cpp
 compiler_rcc_clean:
-compiler_moc_header_make_all: debug/moc_drawlinecircle.cpp debug/moc_irframe.cpp debug/moc_irslider.cpp debug/moc_ana_label.cpp
+	-$(DEL_FILE) debug\qrc_image.cpp
+debug/qrc_image.cpp: ../DrawLineCircle/image.qrc \
+		../DrawLineCircle/res/delete_btn.jpg
+	D:\Qt5\5.2.1\mingw48_32\bin\rcc.exe -name image ..\DrawLineCircle\image.qrc -o debug\qrc_image.cpp
+
+compiler_moc_header_make_all: debug/moc_drawlinecircle.cpp debug/moc_irframe.cpp debug/moc_irslider.cpp debug/moc_ana_label.cpp debug/moc_deletelabel.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) debug\moc_drawlinecircle.cpp debug\moc_irframe.cpp debug\moc_irslider.cpp debug\moc_ana_label.cpp
+	-$(DEL_FILE) debug\moc_drawlinecircle.cpp debug\moc_irframe.cpp debug\moc_irslider.cpp debug\moc_ana_label.cpp debug\moc_deletelabel.cpp
 debug/moc_drawlinecircle.cpp: D:/Qt5/5.2.1/mingw48_32/include/QtWidgets/QMainWindow \
 		D:/Qt5/5.2.1/mingw48_32/include/QtWidgets/qmainwindow.h \
 		D:/Qt5/5.2.1/mingw48_32/include/QtWidgets/qwidget.h \
@@ -349,6 +360,8 @@ debug/moc_irframe.cpp: D:/Qt5/5.2.1/mingw48_32/include/QtWidgets/QFrame \
 		D:/Qt5/5.2.1/mingw48_32/include/QtWidgets/qabstractslider.h \
 		../DrawLineCircle/irslider.h \
 		D:/Qt5/5.2.1/mingw48_32/include/QtCore/QMap \
+		../DrawLineCircle/ana_label.h \
+		../DrawLineCircle/deletelabel.h \
 		../DrawLineCircle/irframe.h
 	D:\Qt5\5.2.1\mingw48_32\bin\moc.exe $(DEFINES) -D__GNUC__ -DWIN32 $(INCPATH) ..\DrawLineCircle\irframe.h -o debug\moc_irframe.cpp
 
@@ -576,8 +589,122 @@ debug/moc_ana_label.cpp: D:/Qt5/5.2.1/mingw48_32/include/QtWidgets/QLabel \
 		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qfiledevice.h \
 		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qvector2d.h \
 		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qtouchdevice.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtGui/QMouseEvent \
 		../DrawLineCircle/ana_label.h
 	D:\Qt5\5.2.1\mingw48_32\bin\moc.exe $(DEFINES) -D__GNUC__ -DWIN32 $(INCPATH) ..\DrawLineCircle\ana_label.h -o debug\moc_ana_label.cpp
+
+debug/moc_deletelabel.cpp: D:/Qt5/5.2.1/mingw48_32/include/QtWidgets/QLabel \
+		D:/Qt5/5.2.1/mingw48_32/include/QtWidgets/qlabel.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtWidgets/qframe.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtWidgets/qwidget.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qwindowdefs.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qglobal.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qconfig.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qfeatures.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qsystemdetection.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qprocessordetection.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qcompilerdetection.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qglobalstatic.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qatomic.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qbasicatomic.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qatomic_bootstrap.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qgenericatomic.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qatomic_msvc.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qatomic_integrity.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qoldbasicatomic.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qatomic_vxworks.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qatomic_power.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qatomic_alpha.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qatomic_armv7.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qatomic_armv6.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qatomic_armv5.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qatomic_bfin.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qatomic_ia64.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qatomic_mips.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qatomic_s390.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qatomic_sh4a.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qatomic_sparc.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qatomic_x86.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qatomic_cxx11.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qatomic_gcc.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qatomic_unix.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qmutex.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qlogging.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qflags.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qtypeinfo.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qtypetraits.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qsysinfo.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qobjectdefs.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qnamespace.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qobjectdefs_impl.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qwindowdefs_win.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qobject.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qstring.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qchar.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qbytearray.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qrefcount.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qarraydata.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qstringbuilder.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qlist.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qalgorithms.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qiterator.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qcoreevent.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qscopedpointer.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qmetatype.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qvarlengtharray.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qcontainerfwd.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qisenum.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qobject_impl.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qmargins.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qrect.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qsize.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qpoint.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qpaintdevice.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qpalette.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qcolor.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qrgb.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qstringlist.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qdatastream.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qiodevice.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qpair.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qregexp.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qstringmatcher.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qbrush.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qvector.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qmatrix.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qpolygon.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qregion.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qline.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qtransform.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qpainterpath.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qimage.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qpixmap.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qsharedpointer.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qshareddata.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qsharedpointer_impl.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qhash.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qfont.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qfontmetrics.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qfontinfo.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtWidgets/qsizepolicy.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qcursor.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qkeysequence.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qevent.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qvariant.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qmap.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qdebug.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qtextstream.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qlocale.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qset.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qcontiguouscache.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qurl.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qurlquery.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qfile.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qfiledevice.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qvector2d.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qtouchdevice.h \
+		../DrawLineCircle/deletelabel.h
+	D:\Qt5\5.2.1\mingw48_32\bin\moc.exe $(DEFINES) -D__GNUC__ -DWIN32 $(INCPATH) ..\DrawLineCircle\deletelabel.h -o debug\moc_deletelabel.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -705,6 +832,8 @@ ui_drawlinecircle.h: ../DrawLineCircle/drawlinecircle.ui \
 		D:/Qt5/5.2.1/mingw48_32/include/QtWidgets/qabstractslider.h \
 		../DrawLineCircle/irslider.h \
 		D:/Qt5/5.2.1/mingw48_32/include/QtCore/QMap \
+		../DrawLineCircle/ana_label.h \
+		../DrawLineCircle/deletelabel.h \
 		D:/Qt5/5.2.1/mingw48_32/include/QtWidgets/QSlider \
 		D:/Qt5/5.2.1/mingw48_32/include/QtWidgets/qslider.h \
 		D:/Qt5/5.2.1/mingw48_32/include/QtWidgets/qabstractslider.h \
@@ -824,7 +953,7 @@ compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: compiler_moc_header_clean compiler_uic_clean 
+compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean 
 
 
 
@@ -1097,6 +1226,7 @@ debug/drawlinecircle.o: ../DrawLineCircle/drawlinecircle.cpp ../DrawLineCircle/d
 		D:/Qt5/5.2.1/mingw48_32/include/QtWidgets/QMenuBar \
 		D:/Qt5/5.2.1/mingw48_32/include/QtWidgets/qmenubar.h \
 		D:/Qt5/5.2.1/mingw48_32/include/QtWidgets/qmenu.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtWidgets/QSlider \
 		D:/Qt5/5.2.1/mingw48_32/include/QtWidgets/QStatusBar \
 		D:/Qt5/5.2.1/mingw48_32/include/QtWidgets/qstatusbar.h \
 		D:/Qt5/5.2.1/mingw48_32/include/QtWidgets/QToolBar \
@@ -1108,9 +1238,11 @@ debug/drawlinecircle.o: ../DrawLineCircle/drawlinecircle.cpp ../DrawLineCircle/d
 		D:/Qt5/5.2.1/mingw48_32/include/QtWidgets/qlabel.h \
 		D:/Qt5/5.2.1/mingw48_32/include/QtCore/QList \
 		D:/Qt5/5.2.1/mingw48_32/include/QtGui/QMouseEvent \
-		D:/Qt5/5.2.1/mingw48_32/include/QtWidgets/QSlider \
 		../DrawLineCircle/irslider.h \
-		D:/Qt5/5.2.1/mingw48_32/include/QtCore/QMap
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/QMap \
+		../DrawLineCircle/ana_label.h \
+		../DrawLineCircle/deletelabel.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/QDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\drawlinecircle.o ..\DrawLineCircle\drawlinecircle.cpp
 
 debug/irframe.o: ../DrawLineCircle/irframe.cpp ../DrawLineCircle/irframe.h \
@@ -1232,6 +1364,8 @@ debug/irframe.o: ../DrawLineCircle/irframe.cpp ../DrawLineCircle/irframe.h \
 		D:/Qt5/5.2.1/mingw48_32/include/QtWidgets/qabstractslider.h \
 		../DrawLineCircle/irslider.h \
 		D:/Qt5/5.2.1/mingw48_32/include/QtCore/QMap \
+		../DrawLineCircle/ana_label.h \
+		../DrawLineCircle/deletelabel.h \
 		D:/Qt5/5.2.1/mingw48_32/include/QtGui/QPainter \
 		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qpainter.h \
 		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qtextoption.h \
@@ -1357,7 +1491,8 @@ debug/irslider.o: ../DrawLineCircle/irslider.cpp ../DrawLineCircle/irslider.h \
 		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qfiledevice.h \
 		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qvector2d.h \
 		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qtouchdevice.h \
-		D:/Qt5/5.2.1/mingw48_32/include/QtGui/QMouseEvent
+		D:/Qt5/5.2.1/mingw48_32/include/QtGui/QMouseEvent \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/QDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\irslider.o ..\DrawLineCircle\irslider.cpp
 
 debug/ana_label.o: ../DrawLineCircle/ana_label.cpp ../DrawLineCircle/ana_label.h \
@@ -1471,6 +1606,7 @@ debug/ana_label.o: ../DrawLineCircle/ana_label.cpp ../DrawLineCircle/ana_label.h
 		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qfiledevice.h \
 		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qvector2d.h \
 		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qtouchdevice.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtGui/QMouseEvent \
 		D:/Qt5/5.2.1/mingw48_32/include/QtGui/QPainter \
 		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qpainter.h \
 		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qtextoption.h \
@@ -1478,6 +1614,122 @@ debug/ana_label.o: ../DrawLineCircle/ana_label.cpp ../DrawLineCircle/ana_label.h
 		D:/Qt5/5.2.1/mingw48_32/include/QtCore/QPoint \
 		D:/Qt5/5.2.1/mingw48_32/include/QtCore/QDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\ana_label.o ..\DrawLineCircle\ana_label.cpp
+
+debug/deletelabel.o: ../DrawLineCircle/deletelabel.cpp ../DrawLineCircle/deletelabel.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtWidgets/QLabel \
+		D:/Qt5/5.2.1/mingw48_32/include/QtWidgets/qlabel.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtWidgets/qframe.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtWidgets/qwidget.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qwindowdefs.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qglobal.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qconfig.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qfeatures.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qsystemdetection.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qprocessordetection.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qcompilerdetection.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qglobalstatic.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qatomic.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qbasicatomic.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qatomic_bootstrap.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qgenericatomic.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qatomic_msvc.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qatomic_integrity.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qoldbasicatomic.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qatomic_vxworks.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qatomic_power.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qatomic_alpha.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qatomic_armv7.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qatomic_armv6.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qatomic_armv5.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qatomic_bfin.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qatomic_ia64.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qatomic_mips.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qatomic_s390.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qatomic_sh4a.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qatomic_sparc.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qatomic_x86.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qatomic_cxx11.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qatomic_gcc.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qatomic_unix.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qmutex.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qlogging.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qflags.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qtypeinfo.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qtypetraits.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qsysinfo.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qobjectdefs.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qnamespace.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qobjectdefs_impl.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qwindowdefs_win.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qobject.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qstring.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qchar.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qbytearray.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qrefcount.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qarraydata.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qstringbuilder.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qlist.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qalgorithms.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qiterator.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qcoreevent.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qscopedpointer.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qmetatype.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qvarlengtharray.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qcontainerfwd.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qisenum.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qobject_impl.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qmargins.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qrect.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qsize.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qpoint.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qpaintdevice.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qpalette.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qcolor.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qrgb.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qstringlist.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qdatastream.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qiodevice.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qpair.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qregexp.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qstringmatcher.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qbrush.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qvector.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qmatrix.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qpolygon.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qregion.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qline.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qtransform.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qpainterpath.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qimage.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qpixmap.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qsharedpointer.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qshareddata.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qsharedpointer_impl.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qhash.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qfont.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qfontmetrics.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qfontinfo.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtWidgets/qsizepolicy.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qcursor.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qkeysequence.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qevent.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qvariant.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qmap.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qdebug.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qtextstream.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qlocale.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qset.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qcontiguouscache.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qurl.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qurlquery.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qfile.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtCore/qfiledevice.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qvector2d.h \
+		D:/Qt5/5.2.1/mingw48_32/include/QtGui/qtouchdevice.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\deletelabel.o ..\DrawLineCircle\deletelabel.cpp
+
+debug/qrc_image.o: debug/qrc_image.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\qrc_image.o debug\qrc_image.cpp
 
 debug/moc_drawlinecircle.o: debug/moc_drawlinecircle.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\moc_drawlinecircle.o debug\moc_drawlinecircle.cpp
@@ -1490,6 +1742,9 @@ debug/moc_irslider.o: debug/moc_irslider.cpp
 
 debug/moc_ana_label.o: debug/moc_ana_label.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\moc_ana_label.o debug\moc_ana_label.cpp
+
+debug/moc_deletelabel.o: debug/moc_deletelabel.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\moc_deletelabel.o debug\moc_deletelabel.cpp
 
 ####### Install
 

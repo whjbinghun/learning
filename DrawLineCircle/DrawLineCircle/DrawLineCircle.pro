@@ -16,11 +16,16 @@ SOURCES += main.cpp\
         drawlinecircle.cpp \
     irframe.cpp \
     irslider.cpp \
-    ana_label.cpp
+    ana_label.cpp \
+    deletelabel.cpp
 
 HEADERS  += drawlinecircle.h \
     irframe.h \
     irslider.h \
-    ana_label.h
+    ana_label.h \
+    deletelabel.h
 
 FORMS    += drawlinecircle.ui
+
+RESOURCES += \
+    image.qrc

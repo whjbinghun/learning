@@ -2,9 +2,11 @@
 #include <QPainter>
 #include <QPoint>
 #include <QDebug>
+#include "deletelabel.h"
 
 Ana_Label::Ana_Label(QWidget *parent) :
     QLabel(parent)
+    ,mp_delete_label( NULL )
 {
     init_ir_widget();
     me_press_status = none_press_status;
@@ -25,10 +27,16 @@ void Ana_Label::mousePressEvent( QMouseEvent *event )
 
 }
 
+void Ana_Label::mouseMoveEvent(QMouseEvent *event)
+{
+
+}
+
 void Ana_Label::mouseReleaseEvent( QMouseEvent *event )
 {
     if ( event->button() == Qt::LeftButton ) {
         press_status_shape( QPoint( event->x(), event->y() ) );
+
     }
 }
 
@@ -43,27 +51,27 @@ void Ana_Label::press_status_shape( QPoint pt ) {
             switch ( i ) {
             case 0:
                 me_press_status = point_status;
-                update();
                 break;
             case 1:
                 me_press_status = line_status;
-                update();
                 break;
             case 2:
                 me_press_status = rect_status;
-                update();
                 break;
             case 3:
                 me_press_status = circle_status;
-                update();
                 break;
             default:
                 me_press_status = none_press_status;
-                update();
                 break;
             }
         }
     }
+    //修改完mp_delete_label的状态后，还必须对mp_delete_label进行刷新
+    mp_delete_label->set_delete_status( false );
+    mp_delete_label->update();
+
+    update();
 }
 
 void Ana_Label::paintEvent( QPaintEvent *event )
@@ -112,4 +120,9 @@ Ana_Label::enum_press_status Ana_Label::get_mouse_press_status()
 void Ana_Label::set_mouse_press_status( enum_press_status e_press_status )
 {
     me_press_status = e_press_status;
+}
+
+void Ana_Label::set_delete_label(DeleteLabel *p_delete_label)
+{
+    mp_delete_label = p_delete_label;
 }

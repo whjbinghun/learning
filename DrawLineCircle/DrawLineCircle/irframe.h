@@ -9,6 +9,7 @@
 #include "irslider.h"
 #include <QMap>
 #include "ana_label.h"
+#include "deletelabel.h"
 
 typedef struct {
     int n_sign_id;
@@ -85,6 +86,8 @@ public:
 public:
     void set_org_sz( int width, int height ) ;
     void judge_org_area( QPoint &pt_area );
+    void delete_ana_shape( QPoint pt );
+    void delete_list_pt( AnaInfo ana_info );
 signals:
 
 public slots:
@@ -119,6 +122,8 @@ private:
     //当前窗口的size与原始size的比例
     float mf_sz_width;
     float mf_sz_height;
+    DeleteLabel *mp_delete_ana_label;
+    bool mb_delete_status;
 };
 
 #endif // IRFRAME_H
