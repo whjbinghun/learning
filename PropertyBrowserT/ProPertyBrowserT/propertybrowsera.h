@@ -12,6 +12,8 @@
 #include "qtbuttonpropertybrowser.h"
 #include "qtgroupboxpropertybrowser.h"
 
+class PropertyDockWidget;
+
 class PropertyBrowserA : public QWidget
 {
     Q_OBJECT
@@ -23,6 +25,7 @@ public:
     void init_property_browser();
     void add_two_item();
     void resizeEvent( QResizeEvent *event );
+    QtTreePropertyBrowser *get_tree_property_browser();
 public slots:
     void slot_change_template_value( QtProperty *property , int value );
     void slot_change_color( QtProperty *property, const QColor &val );
@@ -46,7 +49,7 @@ private:
     QtProperty *mp_min_template;
     QtProperty *mp_item_ir_color;
     QtProperty *mp_item_steup;
-    QWidget *mp_parent;
+    PropertyDockWidget *mp_dock_widget;
 };
 
 #endif // PROPERTYBROWSERA_H

@@ -18,9 +18,11 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         propertybrowsert.cpp \
-    propertybrowsera.cpp
+    propertybrowsera.cpp \
+    propertydockwidget.cpp
 
 HEADERS  += propertybrowsert.h \
-    propertybrowsera.h
+    propertybrowsera.h \
+    propertydockwidget.h
 
 FORMS    += propertybrowsert.ui

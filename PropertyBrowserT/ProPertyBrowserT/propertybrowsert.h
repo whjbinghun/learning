@@ -2,8 +2,7 @@
 #define PROPERTYBROWSERT_H
 
 #include <QMainWindow>
-#include "propertybrowsera.h"
-#include <QPushButton>
+#include "propertydockwidget.h"
 
 namespace Ui {
 class PropertyBrowserT;
@@ -18,15 +17,10 @@ public:
     ~PropertyBrowserT();
 public:
     void resizeEvent( QResizeEvent *event );  
-    void init_button();
-public slots:
-    void slot_copy_templdate_data( );
-    void slot_copy_diagram();
+    void init_dock_widget();
 private:
     Ui::PropertyBrowserT *ui;
-    PropertyBrowserA *mp_property_browser;
-    QPushButton *mp_btn_template_data;
-    QPushButton *mp_btn_diagram;//曲线图
+    PropertyDockWidget *mp_dock_widget;
 };
 
 #endif // PROPERTYBROWSERT_H

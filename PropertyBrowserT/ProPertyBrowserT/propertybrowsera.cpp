@@ -1,6 +1,7 @@
 #include "propertybrowsera.h"
 #include <QTextCodec>
 #include <QDebug>
+#include "propertydockwidget.h"
 
 PropertyBrowserA::PropertyBrowserA(QWidget *parent) :
     QWidget(parent)
@@ -21,7 +22,7 @@ PropertyBrowserA::PropertyBrowserA(QWidget *parent) :
     ,mp_item_templdate( NULL )
     ,mp_item_ir_color( NULL )
     ,mp_item_steup( NULL )
-    ,mp_parent( parent )
+    ,mp_dock_widget( (PropertyDockWidget*) parent )
 {
     init_property_browser();
 }
@@ -95,7 +96,7 @@ void PropertyBrowserA::init_property_browser()
     mp_spin_box_factory = new QtSpinBoxFactory( this );
 
     //树属性浏览器
-    mp_variant_editor = new QtTreePropertyBrowser( this );
+    mp_variant_editor = new QtTreePropertyBrowser( mp_dock_widget );
     mp_variant_editor->setFactoryForManager( mp_variant_manager, mp_variant_factory );
     mp_variant_editor->setFactoryForManager( mp_enum_manager, mp_com_box_factory );
     mp_variant_editor->setFactoryForManager( mp_bool_manager, mp_check_box_factory );
@@ -115,7 +116,6 @@ void PropertyBrowserA::init_property_browser()
     connect( mp_color_manager, SIGNAL(valueChanged(QtProperty*,QColor)),
              this, SLOT( slot_change_color(QtProperty*,QColor)) );
     //connect( mp_color_manager, SIGNAL( valueChanged( QtProperty*, QColor ) ), mp_color_factory, SLOT( slotPropertyChanged( QtProperty*, QColor ) ) );
-
     mp_variant_editor->show();
 }
 
@@ -123,9 +123,14 @@ void PropertyBrowserA::resizeEvent( QResizeEvent *event )
 {
     int n_height = 20;
 
-    mp_variant_editor->move( 0, 0 );
-    mp_variant_editor->resize( width(), height() );
+    mp_variant_editor->move( 0, n_height );
+    mp_variant_editor->resize( width(), height()-n_height*3 );
     qDebug()<<"PropertyBrowserA::resizeEvent"<<width()<<height();
+}
+
+QtTreePropertyBrowser *PropertyBrowserA::get_tree_property_browser()
+{
+    return mp_variant_editor;
 }
 
 void PropertyBrowserA::slot_change_template_value( QtProperty *property, int value )
@@ -166,3 +171,5 @@ void PropertyBrowserA::slot_change_template( QtProperty *property, int val )
         n_value = val;
     }
 }
+
+
