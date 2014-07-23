@@ -5,6 +5,7 @@
 #include <QtMath>
 #include <QDebug>
 #include <windef.h>
+#include <QToolTip>
 
 #define LABEL_WIDTH 161
 #define LABEL_HEIGHT 40
@@ -301,8 +302,15 @@ void IrFrame::mousePressEvent( QMouseEvent *event )
 
 void IrFrame::mouseMoveEvent( QMouseEvent *event )
 {
+
+    /*
+    QString str_text = "全局："+QString::number(event->globalX())+QString::number(event->globalY())
+            +"局部:"+QString::number(event->x())+QString::number(event->y());
+    setToolTip( str_text );*/
+
     delete_ana_shape( QPoint( event->x(), event->y() ) );
     QPoint pt_cursor = QPoint( event->x(), event->y() );
+
 
     switch ( me_draw_status ) {
     case draw_point_status:
@@ -346,6 +354,9 @@ void IrFrame::mouseMoveEvent( QMouseEvent *event )
             pt_move_ana_circle( QPoint( event->x(), event->y() ) );
         }
     }
+
+
+    set_tool_tile_text( event->globalPos(), QPoint( event->x(), event->y() ) );
 }
 
 void IrFrame::normalized_pt( QPoint &pt1, QPoint &pt2 )
@@ -1037,6 +1048,25 @@ void IrFrame::delete_list_pt( AnaInfo ana_info )
     }
 }
 
+//ToolTip 工具提示
+/*bool IrFrame::event( QEvent *event )
+{
+     /*if ( event->type() == QEvent::ToolTip ) {
+         QHelpEvent *helpEvent = static_cast<QHelpEvent *>(event);
+         QToolTip::showText( helpEvent->globalPos(), "全局："+QString::number(helpEvent->globalX())
+                             +","+QString::number(helpEvent->globalY() )
+                             +"局部："+QString::number(helpEvent->x())+","
+                             +QString::number( helpEvent->y() ), this );
 
+         //return true;
+     }
+     return QWidget::event(event);
+}*/
 
-
+void IrFrame::set_tool_tile_text( QPoint pt_global, QPoint pt_local )
+{
+    QToolTip::showText( pt_global, "全局："+QString::number(pt_global.x())
+                        +","+QString::number(pt_global.y() )
+                        +"局部："+QString::number(pt_local.x())+","
+                        +QString::number( pt_local.y() ), this );
+}

@@ -88,6 +88,9 @@ public:
     void judge_org_area( QPoint &pt_area );
     void delete_ana_shape( QPoint pt );
     void delete_list_pt( AnaInfo ana_info );
+
+    //bool event(QEvent *event);
+    void set_tool_tile_text( QPoint pt_global, QPoint pt_local );
 signals:
 
 public slots:
