@@ -4,7 +4,7 @@
 
 bool parser_cfg( const char* src, char*& key, char*& value );
 int load_cfg();
-bool isValidCfgLine( const char* src );
+bool is_valid_cfg_line( const char* src );
 
 QString get_ver();
 QString get_sub_ver();
@@ -19,4 +19,5 @@ void set_user_pwd( QString str_user_pwd );
 void set_host_ip( QString str_host_ip );
 void set_server_port( QString str_server_port );
 void save_login_info();
+void write_file();
 #endif // PARSECONFILE_H

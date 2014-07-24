@@ -124,7 +124,7 @@ void LoginDialog::set_login_info()
     ms_port = get_server_port();
     ms_name = get_user_name();
     ms_pwd = get_user_pwd();
-    qDebug()<<"LoginDialog::set_login_info"<<ms_IP<<ms_port<<ms_name<<ms_pwd;
+    //qDebug()<<"LoginDialog::set_login_info"<<ms_IP<<ms_port<<ms_name<<ms_pwd;
 }
 
 void LoginDialog::login_set_text()
