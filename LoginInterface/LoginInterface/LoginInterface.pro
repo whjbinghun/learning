@@ -15,10 +15,10 @@ TEMPLATE = app
 SOURCES += main.cpp\
         logininterface.cpp \
     logindialog.cpp \
-    ParseConFile.cpp
+    cfgfileinfo.cpp
 
 HEADERS  += logininterface.h \
     logindialog.h \
-    ParseConFile.h
+    cfgfileinfo.h
 
 FORMS    += logininterface.ui

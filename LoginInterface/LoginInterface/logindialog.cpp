@@ -1,7 +1,8 @@
 #include "logindialog.h"
 #include <QHBoxLayout>
 #include <QVBoxLayout>
-#include "ParseConFile.h"
+#include <QRegExpValidator>
+#include <QCoreApplication>
 #include <QDebug>
 
 LoginDialog::LoginDialog(QWidget *parent) :
@@ -14,8 +15,76 @@ LoginDialog::LoginDialog(QWidget *parent) :
     ,mp_line_port( NULL )
     ,mp_line_name( NULL )
     ,mp_line_pwd( NULL )
+    ,mp_cfg_file_info( NULL )
 {
-    load_cfg();
+    ms_dir_path = QCoreApplication::applicationDirPath();
+    ms_file_name = ms_dir_path+"/client.cfg";
+    qDebug()<<"load_cfg:"<<ms_file_name;
+
+    mp_cfg_file_info = new CfgFileInfo();
+    mp_cfg_file_info->load_cfg( ms_file_name );
+    mp_cfg_file_info->get_config_info( "SERVER_HOST_IP", ms_IP );
+    mp_cfg_file_info->get_config_info( "SERVER_PORT", ms_port );
+    mp_cfg_file_info->get_config_info( "MONITOR_USER_NAME", ms_name );
+    mp_cfg_file_info->get_config_info( "MONITOR_USER_PASSWD", ms_pwd );
+    qDebug()<<"LoginDialog::LoginDialog"<<ms_IP<<ms_port<<ms_name<<ms_pwd;
+
+    init_login();
+    login_set_text();
+
+
+    connect( btn_Cancle, SIGNAL( clicked() ), this, SLOT( close() ) );
+    connect( btn_Login, SIGNAL( clicked() ), this, SLOT( login_clicked() ) );
+}
+void LoginDialog::login_clicked()
+{
+    ms_IP = mp_line_IP->text();
+    ms_port = mp_line_port->text();
+    ms_name = mp_line_name->text();
+    ms_pwd = mp_line_pwd->text();
+    mp_cfg_file_info->set_config_info( "SERVER_HOST_IP", ms_IP );
+    mp_cfg_file_info->set_config_info( "SERVER_PORT", ms_port );
+    mp_cfg_file_info->set_config_info( "MONITOR_USER_NAME", ms_name );
+    mp_cfg_file_info->set_config_info( "MONITOR_USER_PASSWD", ms_pwd );
+
+    mp_cfg_file_info->save_cofig_file( ms_file_name );
+    accept();//隐含窗口，并返回结果QDialg::Accepted
+}
+//返回登陆名
+QString LoginDialog::get_IP()
+{
+    return ms_IP;
+}
+
+QString LoginDialog::get_port()
+{
+    return ms_port;
+}
+
+QString LoginDialog::get_name()
+{
+    return ms_name;
+}
+
+//返回密码
+QString LoginDialog::get_pwd()
+{
+    return ms_pwd;
+}
+
+void LoginDialog::login_set_text()
+{
+    mp_line_IP->setText( ms_IP );
+    mp_line_port->setText( ms_port );
+    mp_line_name->setText( ms_name );
+    mp_line_pwd->setText( ms_pwd );
+}
+
+void LoginDialog::init_login()
+{
+    QRegExp rx("[a-zA-Z0-9\-\\\_]{25}");
+    QRegExpValidator *pRevalidotor = new QRegExpValidator( rx, this);
+
     mp_lab_IP = new QLabel( tr("IP:") );
     mp_lab_port = new QLabel( tr("port:") );
     mp_lab_name = new QLabel( tr( "用户名" ) );
@@ -24,6 +93,8 @@ LoginDialog::LoginDialog(QWidget *parent) :
     mp_line_port = new QLineEdit();
     mp_line_name = new QLineEdit();
     mp_line_pwd = new QLineEdit();
+    mp_line_pwd->setValidator( pRevalidotor );
+
     btn_Login = new QPushButton( tr("登录") );
     btn_Cancle = new QPushButton( tr("取消") );
 
@@ -63,74 +134,4 @@ LoginDialog::LoginDialog(QWidget *parent) :
     this->setLayout( v );
     this->resize( 200, 150 );
     this->setMaximumSize( 200, 150 );
-    connect(btn_Cancle, SIGNAL(clicked()), this, SLOT(close()));
-    connect(btn_Login, SIGNAL(clicked()), this, SLOT(login_clicked()));
-    set_login_info();
-    login_set_text();
-}
-void LoginDialog::login_clicked()
-{
-    ms_IP = mp_line_IP->text();
-    ms_port = mp_line_port->text();
-    ms_name = mp_line_name->text();
-    ms_pwd = mp_line_pwd->text();
-    qDebug()<<"LoginDialog::login_clicked():"<<ms_pwd;
-    set_host_ip( ms_IP );
-    set_server_port( ms_port );
-    set_user_name( ms_name );
-    set_user_pwd( ms_pwd );
-    save_login_info();
-    /*QSqlTableModel model;
-    model.setTable("student");
-    model.setFilter(tr("id = '%1' and pwd = '%2'").arg(name).arg(pwd));
-    model.select();
-    if(model.rowCount()==1)//查询到有一个结果
-    {
-        accept();//隐含窗口，并返回结果QDialg::Accepted
-    }else
-    {
-        QMessageBox::warning(this, tr("warn"), tr("用户名或者密码不正确"));
-        line_Name->clear();
-        line_Pwd->clear();
-        line_Name->setFocus();
-    }*/
-    accept();//隐含窗口，并返回结果QDialg::Accepted
-}
-//返回登陆名
-QString LoginDialog::get_IP()
-{
-    return ms_IP;
-}
-
-QString LoginDialog::get_port()
-{
-    return ms_port;
-}
-
-QString LoginDialog::get_name()
-{
-    return ms_name;
-}
-
-//返回密码
-QString LoginDialog::get_pwd()
-{
-    return ms_pwd;
-}
-
-void LoginDialog::set_login_info()
-{
-    ms_IP = get_host_ip();
-    ms_port = get_server_port();
-    ms_name = get_user_name();
-    ms_pwd = get_user_pwd();
-    //qDebug()<<"LoginDialog::set_login_info"<<ms_IP<<ms_port<<ms_name<<ms_pwd;
-}
-
-void LoginDialog::login_set_text()
-{
-    mp_line_IP->setText( ms_IP );
-    mp_line_port->setText( ms_port );
-    mp_line_name->setText( ms_name );
-    mp_line_pwd->setText( ms_pwd );
 }

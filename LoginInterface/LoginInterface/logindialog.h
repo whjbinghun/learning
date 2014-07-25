@@ -6,6 +6,7 @@
 #include <QLabel>
 #include <QLineEdit>
 #include <QPushButton>
+#include "cfgfileinfo.h"
 
 class LoginDialog : public QDialog
 {
@@ -17,8 +18,8 @@ public:
     QString get_port();
     QString get_name();
     QString get_pwd();
-    void set_login_info();
     void login_set_text();
+    void init_login();
 public slots:
     void login_clicked();
 private:
@@ -36,7 +37,9 @@ private:
     QString ms_port;
     QString ms_name;
     QString ms_pwd;
-
+    CfgFileInfo *mp_cfg_file_info;
+    QString ms_dir_path;
+    QString ms_file_name;
 };
 
 #endif // LOGINDIALOG_H
