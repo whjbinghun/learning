@@ -31,6 +31,19 @@ enum AnaMove{
     move_leftbottom
 };
 
+typedef struct _tagTempBuf{
+    QPoint pt;
+    float f_temp;
+} TempBuf;
+
+typedef struct _tagTempAnaBuf{
+    TempBuf max_temp;
+    TempBuf min_temp;
+    TempBuf avg_temp;
+    unsigned int ui_sec;  //  帧的UTC时间的秒值
+    unsigned int ui_usec;  // 帧的微秒值
+} TempAnaBuf;
+
 class IrFrame : public QFrame
 {
     Q_OBJECT
@@ -91,6 +104,9 @@ public:
 
     //bool event(QEvent *event);
     void set_tool_tile_text( QPoint pt_global, QPoint pt_local );
+    bool get_ana_now_temp( QString str_ana, TempAnaBuf &temp_info );
+    void get_max_temp_string( int &n_num, float &f_max_temp, QString str_type_name, QString &str_shape_num );
+    void add_temp_data_now();
 signals:
 
 public slots:
@@ -127,6 +143,7 @@ private:
     float mf_sz_height;
     DeleteLabel *mp_delete_ana_label;
     bool mb_delete_status;
+    QMap<QString, QList<TempAnaBuf> > m_map_temp_now;
 };
 
 #endif // IRFRAME_H

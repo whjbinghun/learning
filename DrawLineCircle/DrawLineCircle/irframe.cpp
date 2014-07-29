@@ -32,6 +32,8 @@ IrFrame::IrFrame(QWidget *parent) :
     setMouseTracking( true );
     set_cursor_pos();
     set_org_sz( 320, 240 );
+    //测试红外温度分析显示
+    add_temp_data_now();
 }
 
 IrFrame::~IrFrame()
@@ -125,7 +127,14 @@ void IrFrame::paintEvent( QPaintEvent *event )
         break;
     }
 
-    int n_type_size = m_list_anainfo.size();
+    int n_point_num = 0;
+    int n_line_num = 0;
+    int n_rect_num = 0;
+    int n_circle_num = 0;
+    int temp_width = 100;
+    int temp_height = 15;
+    TempAnaBuf temp_ana;
+    bool b_get_temp = false;
     QList<AnaInfo>::iterator it;
     for( it=m_list_anainfo.begin(); it!=m_list_anainfo.end(); it++ ) {
         //按当前窗口的大小比例缩放
@@ -147,11 +156,44 @@ void IrFrame::paintEvent( QPaintEvent *event )
             draw.drawPoint( n_pt_end_x, n_pt_end_y );
             draw.drawLine( QPoint(n_pt_end_x-n_point_area,n_pt_end_y), QPoint(n_pt_end_x+n_point_area,n_pt_end_y) );
             draw.drawLine( QPoint(n_pt_end_x, n_pt_end_y-n_point_area), QPoint(n_pt_end_x,n_pt_end_y+n_point_area) );
+
+            n_point_num++;
+            QString str_point_num;
+            float f_max=0;
+            b_get_temp = get_ana_now_temp( it->type_name, temp_ana );
+            if( b_get_temp ) {
+                f_max = temp_ana.max_temp.f_temp;
+                get_max_temp_string( n_point_num, f_max, it->type_name, str_point_num );
+                //temp_width = str_point_num.size()+2;
+                //如果点的位置在边界上  width >=0 <15 , height >=0 <10
+                QPoint pt_max_temp = QPoint( n_pt_start_x, n_pt_start_y-temp_height );
+                judge_area( pt_max_temp );
+                draw.drawText( pt_max_temp.x(), pt_max_temp.y(), temp_width, temp_height, Qt::AlignLeft,  str_point_num );
+            }
         } else if( it->type_name == "line" ) {
             draw.drawLine( pt_start, pt_end );
             if( me_ana_move!=move_null && (*it).n_sign_id == mn_sign_id ) {
                 draw.drawRect( n_pt_start_x-n_other_area,n_pt_start_y-n_other_area, n_frame_size, n_frame_size );
                 draw.drawRect( n_pt_end_x-n_other_area,n_pt_end_y-n_other_area, n_frame_size, n_frame_size );
+            }
+
+            n_line_num++;
+            QString str_line_num;
+            float f_max=0;
+            b_get_temp = get_ana_now_temp( it->type_name, temp_ana );
+            if( b_get_temp ) {
+                f_max = temp_ana.max_temp.f_temp;
+                get_max_temp_string( n_line_num, f_max, it->type_name, str_line_num );
+                //temp_width = str_line_num.size()+2;
+                //如果点的位置在边界上  width >=0 <15 , height >=0 <10
+                QPoint pt_max_temp;
+                if( n_pt_start_y < n_pt_end_y ) {
+                    pt_max_temp = QPoint( n_pt_start_x, n_pt_start_y-temp_height );
+                } else {
+                    pt_max_temp = QPoint( n_pt_end_x, n_pt_end_y-temp_height );
+                }
+                judge_area( pt_max_temp );
+                draw.drawText( pt_max_temp.x(), pt_max_temp.y(), temp_width, temp_height, Qt::AlignLeft,  str_line_num );
             }
         } else if( it->type_name == "rect" ) {
             draw.drawRect( QRect( n_pt_start_x, n_pt_start_y, n_pt_end_x-n_pt_start_x, n_pt_end_y-n_pt_start_y ));
@@ -160,6 +202,20 @@ void IrFrame::paintEvent( QPaintEvent *event )
                 draw.drawRect( n_pt_end_x-n_other_area, n_pt_end_y-n_other_area, n_frame_size, n_frame_size );
                 draw.drawRect( n_pt_start_x-n_other_area, n_pt_end_y-n_other_area, n_frame_size, n_frame_size );
                 draw.drawRect( n_pt_end_x-n_other_area, n_pt_start_y-n_other_area, n_frame_size, n_frame_size );
+            }
+
+            n_rect_num++;
+            QString str_rect_num;
+            float f_max=0;
+            b_get_temp = get_ana_now_temp( it->type_name, temp_ana );
+            if( b_get_temp ) {
+                f_max = temp_ana.max_temp.f_temp;
+                get_max_temp_string( n_rect_num, f_max, it->type_name, str_rect_num );
+                //temp_width = str_rect_num.size()+2;
+                //如果点的位置在边界上  width >=0 <15 , height >=0 <10
+                QPoint pt_max_temp = QPoint( n_pt_start_x, n_pt_start_y-temp_height );
+                judge_area( pt_max_temp );
+                draw.drawText( pt_max_temp.x(), pt_max_temp.y(), temp_width, temp_height, Qt::AlignLeft,  str_rect_num );
             }
         } else if( it->type_name == "circle" ) {
             int n_x = n_pt_end_x-n_pt_start_x;
@@ -171,6 +227,20 @@ void IrFrame::paintEvent( QPaintEvent *event )
                 draw.drawRect( n_pt_start_x-n_other_area,n_pt_start_y-n_other_area-n_r, n_frame_size, n_frame_size );
                 draw.drawRect( n_pt_start_x-n_other_area+n_r, n_pt_start_y-n_other_area, n_frame_size, n_frame_size );
                 draw.drawRect( n_pt_start_x-n_other_area, n_pt_start_y-n_other_area+n_r, n_frame_size, n_frame_size );
+            }
+
+            n_circle_num++;
+            QString str_circle_num;
+            float f_max=0;
+            b_get_temp = get_ana_now_temp( it->type_name, temp_ana );
+            if( b_get_temp ) {
+                f_max = temp_ana.max_temp.f_temp;
+                get_max_temp_string( n_circle_num, f_max, it->type_name, str_circle_num );
+                //temp_width = str_circle_num.size()+2;
+                //如果点的位置在边界上  width >=0 <15 , height >=0 <10
+                QPoint pt_max_temp = QPoint( n_pt_start_x-n_r, n_pt_start_y-n_r-temp_height );
+                judge_area( pt_max_temp );
+                draw.drawText( pt_max_temp.x(), pt_max_temp.y(), temp_width, temp_height, Qt::AlignLeft,  str_circle_num );
             }
         }
     }
@@ -1069,4 +1139,60 @@ void IrFrame::set_tool_tile_text( QPoint pt_global, QPoint pt_local )
                         +","+QString::number(pt_global.y() )
                         +"局部："+QString::number(pt_local.x())+","
                         +QString::number( pt_local.y() ), this );
+}
+
+bool IrFrame::get_ana_now_temp( QString str_ana, TempAnaBuf &temp_info )
+{
+    QMap<QString, QList<TempAnaBuf> >::iterator it = m_map_temp_now.find( str_ana );
+    if ( it == m_map_temp_now.end() ) return false;
+
+    QList<TempAnaBuf>::iterator it_temp = it.value().begin();
+    temp_info = *it_temp;
+
+    return true;
+}
+
+void IrFrame::get_max_temp_string( int &n_num, float &f_max_temp, QString str_type_name, QString &str_shape_num )
+{
+    QString str_shape;
+    if( str_type_name == "point" ){
+        str_shape = "P";
+    } else if( str_type_name == "line" ) {
+        str_shape = "L";
+    } else if( str_type_name == "rect" ) {
+        str_shape = "R";
+    } else if( str_type_name == "circle" ) {
+        str_shape = "C";
+    }
+
+    if( n_num<10 ){
+        str_shape_num = str_shape+"0" + QString( n_num ) + "Max:" + QString::number( f_max_temp, '.', 2 );
+    } else {
+        str_shape_num = str_shape+QString( n_num ) + "Max:" + QString::number( f_max_temp, '.', 2 );
+    }
+}
+
+void IrFrame::add_temp_data_now()
+{
+    TempAnaBuf temp_ana;
+    temp_ana.max_temp.pt = QPoint( 100, 200 );
+    temp_ana.max_temp.f_temp = 30.12;
+    temp_ana.min_temp.pt = QPoint( 150, 300  );
+    temp_ana.min_temp.f_temp = 10.24;
+    temp_ana.avg_temp.pt = QPoint( 124, 250 );
+    temp_ana.avg_temp.f_temp = 20.5;
+    temp_ana.ui_sec  = 0;
+    temp_ana.ui_usec = 0;
+    QList<TempAnaBuf> temp_list_point;
+    QList<TempAnaBuf> temp_list_line;
+    QList<TempAnaBuf> temp_list_rect;
+    QList<TempAnaBuf> temp_list_circle;
+    temp_list_point.push_back( temp_ana );
+    temp_list_line.push_back( temp_ana );
+    temp_list_rect.push_back( temp_ana );
+    temp_list_circle.push_back( temp_ana );
+    m_map_temp_now.insert( "point", temp_list_point );
+    m_map_temp_now.insert( "line", temp_list_line );
+    m_map_temp_now.insert( "rect", temp_list_rect );
+    m_map_temp_now.insert( "circle", temp_list_circle );
 }
