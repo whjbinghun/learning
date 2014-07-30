@@ -6,6 +6,7 @@
 #include <QThread>
 #include <QMessageBox>
 #include <QGraphicsOpacityEffect>
+#include <QMenuBar>
 
 #include <QDebug>
 #include "wndpreview.h"
@@ -951,7 +952,6 @@ void VodPlayInterface::show_contextmenu( const QPoint& pos ) {
     //QAction *p_action_config_widget = mp_cmenu->addAction( "配置窗口" );
     QAction *p_action_analyse_widget = mp_cmenu->addAction( "分析窗口" );
     QAction *p_action_analyse_back = mp_cmenu->addAction( "回放窗口" );
-
 
     //connect( p_action_monitor_widget, SIGNAL( triggered( bool ) ), this, SLOT( slot_display_monitor_interface() ) );
     //connect( p_action_config_widget, SIGNAL( triggered( bool ) ), this, SLOT( slot_display_config_interface() ) );
