@@ -1,5 +1,5 @@
 *.o
-*.pro.user
+*.pro.user*
 */Debug/
 *.Debug
 *.Release
