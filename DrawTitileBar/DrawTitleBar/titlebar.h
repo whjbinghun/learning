@@ -66,9 +66,6 @@ private:
     QPainter *mp_test_painter;
     QHBoxLayout *mp_layout;
 
-
-
-
 };
 
 #endif // TITLEBAR_H

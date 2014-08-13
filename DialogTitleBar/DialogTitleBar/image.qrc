@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/image">
+        <file>res/background.bmp</file>
+        <file>res/caption_close.bmp</file>
+        <file>res/caption_logo.bmp</file>
+        <file>res/caption_min.bmp</file>
+    </qresource>
+</RCC>

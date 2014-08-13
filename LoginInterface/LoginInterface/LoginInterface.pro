@@ -15,10 +15,15 @@ TEMPLATE = app
 SOURCES += main.cpp\
         logininterface.cpp \
     logindialog.cpp \
-    cfgfileinfo.cpp
+    cfgfileinfo.cpp \
+    titlebar.cpp
 
 HEADERS  += logininterface.h \
     logindialog.h \
-    cfgfileinfo.h
+    cfgfileinfo.h \
+    titlebar.h
 
 FORMS    += logininterface.ui
+
+RESOURCES += \
+    image.qrc

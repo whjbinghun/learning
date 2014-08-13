@@ -3,7 +3,10 @@
 #include <QVBoxLayout>
 #include <QRegExpValidator>
 #include <QCoreApplication>
+#include <QPainter>
 #include <QDebug>
+
+#define TITLE_BAR_HEIGHT 50
 
 LoginDialog::LoginDialog(QWidget *parent) :
     QDialog(parent)
@@ -16,7 +19,10 @@ LoginDialog::LoginDialog(QWidget *parent) :
     ,mp_line_name( NULL )
     ,mp_line_pwd( NULL )
     ,mp_cfg_file_info( NULL )
+    ,mp_title_bar( NULL )
 {
+    init_title_bar();
+
     ms_dir_path = QCoreApplication::applicationDirPath();
     ms_file_name = ms_dir_path+"/client.cfg";
     qDebug()<<"load_cfg:"<<ms_file_name;
@@ -35,6 +41,7 @@ LoginDialog::LoginDialog(QWidget *parent) :
 
     connect( btn_Cancle, SIGNAL( clicked() ), this, SLOT( close() ) );
     connect( btn_Login, SIGNAL( clicked() ), this, SLOT( login_clicked() ) );
+
 }
 void LoginDialog::login_clicked()
 {
@@ -114,16 +121,16 @@ void LoginDialog::init_login()
     QHBoxLayout *h3 = new QHBoxLayout();
     QHBoxLayout *h4 = new QHBoxLayout();
     QHBoxLayout *h5 = new QHBoxLayout();
-    h1->addWidget(mp_lab_IP);
-    h1->addWidget(mp_line_IP);
-    h2->addWidget(mp_lab_port);
+    h1->addWidget( mp_lab_IP );
+    h1->addWidget( mp_line_IP );
+    h2->addWidget( mp_lab_port );
     h2->addWidget( mp_line_port );
     h3->addWidget( mp_lab_name );
     h3->addWidget( mp_line_name );
-    h4->addWidget(mp_lab_pwd);
+    h4->addWidget( mp_lab_pwd );
     h4->addWidget( mp_line_pwd );
-    h5->addWidget(btn_Login);
-    h5->addWidget(btn_Cancle);
+    h5->addWidget( btn_Login );
+    h5->addWidget( btn_Cancle );
 
     QVBoxLayout *v = new QVBoxLayout();
     v->addLayout( h1 );
@@ -131,7 +138,46 @@ void LoginDialog::init_login()
     v->addLayout( h3 );
     v->addLayout( h4 );
     v->addLayout( h5 );
-    this->setLayout( v );
-    this->resize( 200, 150 );
-    this->setMaximumSize( 200, 150 );
+    setLayout( v );
+
+    resize( width(), height() );
+    //resize( 200, 150 );
+    //setMaximumSize( 200, 150 );
+
+}
+
+void LoginDialog::init_title_bar()
+{
+    //隐藏标题栏
+    showFullScreen();
+    setWindowFlags (Qt::FramelessWindowHint);
+    //创建标题栏  类
+    mp_title_bar = new TitleBar( this );
+    mp_title_bar->resize( width(), TITLE_BAR_HEIGHT );
+    mp_title_bar->setMouseTracking( true );
+    qDebug()<<"LoginDialog::init_title_bar"<<width()<<height();//1920*1080
+}
+
+void LoginDialog::resizeEvent( QResizeEvent *event )
+{
+    //mp_login_title_bar->move( 0, 0 );
+    //mp_login_title_bar->resize( width(), TITLE_BAR_HEIGHT );
+    /*mp_lab_IP->move( 0, 0 );
+    mp_lab_port->move( 0, 30 );
+    mp_lab_name->move( 0, 60 );
+    mp_lab_pwd->move( 0, 90 );
+    mp_line_IP->move( 0, 120 );
+    mp_line_port->move( 0, 150 );
+    mp_line_name->move( 0, 180 );
+    mp_line_pwd->move( 0, 210 );
+    */
+}
+
+void LoginDialog::paintEvent( QPaintEvent *event )
+{
+    QPainter painter(this);
+    //标题栏背景图片
+    painter.drawPixmap( 0, 0, width(), TITLE_BAR_HEIGHT, QPixmap(":image/res/background.bmp") );
+    painter.end();
+
 }

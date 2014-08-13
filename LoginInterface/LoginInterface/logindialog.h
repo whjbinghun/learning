@@ -7,6 +7,8 @@
 #include <QLineEdit>
 #include <QPushButton>
 #include "cfgfileinfo.h"
+#include "titlebar.h"
+
 
 class LoginDialog : public QDialog
 {
@@ -20,6 +22,9 @@ public:
     QString get_pwd();
     void login_set_text();
     void init_login();
+    void init_title_bar();
+    void resizeEvent( QResizeEvent *event );
+    void paintEvent( QPaintEvent *event );
 public slots:
     void login_clicked();
 private:
@@ -40,6 +45,8 @@ private:
     CfgFileInfo *mp_cfg_file_info;
     QString ms_dir_path;
     QString ms_file_name;
+private:
+    TitleBar *mp_title_bar;
 };
 
 #endif // LOGINDIALOG_H
