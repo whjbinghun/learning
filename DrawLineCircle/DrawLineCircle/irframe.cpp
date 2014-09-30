@@ -6,7 +6,6 @@
 #include <QDebug>
 #include <windef.h>
 #include <QToolTip>
-#include "deletelabel.h"
 
 #define LABEL_WIDTH 161
 #define LABEL_HEIGHT 40

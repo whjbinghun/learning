@@ -2,6 +2,7 @@
 #include <QPainter>
 #include <QPoint>
 #include <QDebug>
+#include "deletelabel.h"
 
 Ana_Label::Ana_Label(QWidget *parent) :
     QLabel(parent)
@@ -119,4 +120,9 @@ Ana_Label::enum_press_status Ana_Label::get_mouse_press_status()
 void Ana_Label::set_mouse_press_status( enum_press_status e_press_status )
 {
     me_press_status = e_press_status;
+}
+
+void Ana_Label::set_delete_label(DeleteLabel *p_delete_label)
+{
+    mp_delete_label = p_delete_label;
 }
