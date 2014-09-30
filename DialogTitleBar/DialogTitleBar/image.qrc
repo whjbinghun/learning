@@ -4,5 +4,6 @@
         <file>res/caption_close.bmp</file>
         <file>res/caption_logo.bmp</file>
         <file>res/caption_min.bmp</file>
+        <file>res/caption_back.bmp</file>
     </qresource>
 </RCC>

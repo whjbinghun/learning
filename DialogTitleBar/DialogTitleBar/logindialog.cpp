@@ -8,6 +8,8 @@
 #include <QDebug>
 
 #define TITLE_BAR_HEIGHT 50
+#define DIALOG_WIDTH 400
+#define DIALOG_HEIGHT 300
 
 LoginDialog::LoginDialog(QWidget *parent) :
     QDialog(parent)
@@ -118,7 +120,39 @@ void LoginDialog::init_login()
     btn_Cancle = new QPushButton( tr("取消") );
 
     mp_line_pwd->setEchoMode( QLineEdit::Password );
-    mp_lab_IP->setMaximumWidth(40);
+
+    mp_lab_IP->setMaximumHeight( 40 );
+    mp_lab_port->setMaximumHeight( 40 );
+    mp_lab_name->setMaximumHeight( 40 );
+    mp_lab_pwd->setMaximumHeight( 40 );
+    mp_line_IP->setMaximumHeight( 40 );
+    mp_line_port->setMaximumHeight( 40 );
+    mp_line_name->setMaximumHeight( 40 );
+    mp_line_pwd->setMaximumHeight( 40 );
+    btn_Login->setMaximumHeight( 40 );
+    btn_Cancle->setMaximumHeight( 40 );
+
+    mp_lab_IP->setMaximumWidth( 80 );
+    mp_lab_port->setMaximumWidth( 80 );
+    mp_lab_name->setMaximumWidth( 80 );
+    mp_lab_pwd->setMaximumWidth( 80 );
+    mp_line_IP->setMaximumWidth( 200 );
+    mp_line_port->setMaximumWidth( 200 );
+    mp_line_name->setMaximumWidth( 200 );
+    mp_line_pwd->setMaximumWidth( 200 );
+
+    mp_lab_IP->setStyleSheet( "font-size : 16px" );
+    mp_lab_port->setStyleSheet( "font-size : 16px" );
+    mp_lab_name->setStyleSheet( "font-size : 16px" );
+    mp_lab_pwd->setStyleSheet( "font-size : 16px" );
+    mp_line_IP->setStyleSheet( "font-size : 16px" );
+    mp_line_port->setStyleSheet( "font-size : 16px" );
+    mp_line_name->setStyleSheet( "font-size : 16px" );
+    mp_line_pwd->setStyleSheet( "font-size : 16px" );
+    btn_Login->setStyleSheet( "font-size : 16px" );
+    btn_Cancle->setStyleSheet( "font-size : 16px" );
+
+    /*mp_lab_IP->setMaximumWidth(40);
     mp_lab_port->setMaximumWidth(40);
     mp_lab_name->setMaximumWidth( 40 );
     mp_lab_pwd->setMaximumWidth( 40 );
@@ -126,7 +160,7 @@ void LoginDialog::init_login()
     mp_line_port->setMaximumWidth(100);
     mp_line_name->setMaximumWidth( 100 );
     mp_line_pwd->setMaximumWidth( 100 );
-
+    */
     //把窗口等分成4行
     QHBoxLayout *h1 = new QHBoxLayout();
     QHBoxLayout *h2 = new QHBoxLayout();
@@ -150,25 +184,16 @@ void LoginDialog::init_login()
     v->addLayout( h3 );
     v->addLayout( h4 );
     v->addLayout( h5 );
-    this->setLayout( v );
+    setLayout( v );
 
-    this->resize( 200, 150 );
-    this->setMaximumSize( 200, 150 );
+    resize( DIALOG_WIDTH, DIALOG_HEIGHT );
+    //resize( 200, 150 );
+    //setMaximumSize( 200, 150 );
 }
 
 void LoginDialog::resizeEvent( QResizeEvent *event )
 {
-    //mp_login_title_bar->move( 0, 0 );
-    //mp_login_title_bar->resize( width(), TITLE_BAR_HEIGHT );
-    /*mp_lab_IP->move( 0, 0 );
-    mp_lab_port->move( 0, 30 );
-    mp_lab_name->move( 0, 60 );
-    mp_lab_pwd->move( 0, 90 );
-    mp_line_IP->move( 0, 120 );
-    mp_line_port->move( 0, 150 );
-    mp_line_name->move( 0, 180 );
-    mp_line_pwd->move( 0, 210 );
-    */
+
 }
 
 void LoginDialog::paintEvent( QPaintEvent *event )

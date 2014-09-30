@@ -5,8 +5,6 @@
 #include <QDebug>
 
 #define TITLE_BAR_HEIGHT 70
-#define DIALOG_WIDTH 200
-#define DIALOG_HEIGHT 150
 
 DialogTitleBar::DialogTitleBar(QWidget *parent) :
     QDialog(parent),
@@ -39,7 +37,7 @@ void DialogTitleBar::paintEvent(QPaintEvent *event)
 {
     QPainter draw( this );
     //标题栏背景图片
-    draw.drawPixmap( 0, 0, width(), TITLE_BAR_HEIGHT, QPixmap( ":image/res/background.bmp" ) );
+    draw.drawPixmap( 0, 0, width(), TITLE_BAR_HEIGHT, QPixmap( ":image/res/caption_back.bmp" ) );
     draw.drawPixmap( 0, TITLE_BAR_HEIGHT, width(), height()-TITLE_BAR_HEIGHT, QPixmap( ":image/res/background.bmp" ) );
     draw.end();
 
@@ -47,11 +45,11 @@ void DialogTitleBar::paintEvent(QPaintEvent *event)
 
 void DialogTitleBar::init_login_dialog()
 {
-    mp_login_dialog = new LoginDialog( this );
+    mp_login_dialog = new LoginDialog(  );
     mp_login_dialog->setParent( this );
     mp_login_dialog->show();
     int n_height = height()-TITLE_BAR_HEIGHT;
 
-    mp_login_dialog->move( (width()-DIALOG_WIDTH)/2, (n_height-DIALOG_HEIGHT)/2 );
-    mp_login_dialog->resize( DIALOG_WIDTH, DIALOG_HEIGHT );
+    mp_login_dialog->move( (width()-mp_login_dialog->width())/2, (n_height-mp_login_dialog->height())/2 );
+    //mp_login_dialog->resize( DIALOG_WIDTH, DIALOG_HEIGHT );
 }

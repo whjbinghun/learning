@@ -7,6 +7,7 @@
 #include <QDebug>
 
 #define TITLE_BAR_HEIGHT 50
+#define LOGIN_HEIGHT 200
 
 LoginDialog::LoginDialog(QWidget *parent) :
     QDialog(parent)
@@ -92,31 +93,31 @@ void LoginDialog::init_login()
     QRegExp rx("[a-zA-Z0-9\-\\\_]{25}");
     QRegExpValidator *pRevalidotor = new QRegExpValidator( rx, this);
 
-    mp_lab_IP = new QLabel( tr("IP:") );
-    mp_lab_port = new QLabel( tr("port:") );
-    mp_lab_name = new QLabel( tr( "用户名" ) );
-    mp_lab_pwd = new QLabel( tr("密码：") );
-    mp_line_IP = new QLineEdit();
-    mp_line_port = new QLineEdit();
-    mp_line_name = new QLineEdit();
-    mp_line_pwd = new QLineEdit();
+    mp_lab_IP = new QLabel( tr("IP:"), this );
+    mp_lab_port = new QLabel( tr("port:"), this );
+    mp_lab_name = new QLabel( tr( "用户名" ), this );
+    mp_lab_pwd = new QLabel( tr("密码："), this );
+    mp_line_IP = new QLineEdit( this );
+    mp_line_port = new QLineEdit( this );
+    mp_line_name = new QLineEdit( this );
+    mp_line_pwd = new QLineEdit( this );
     mp_line_pwd->setValidator( pRevalidotor );
 
-    btn_Login = new QPushButton( tr("登录") );
-    btn_Cancle = new QPushButton( tr("取消") );
+    btn_Login = new QPushButton( tr("登录"), this );
+    btn_Cancle = new QPushButton( tr("取消"), this );
 
     mp_line_pwd->setEchoMode( QLineEdit::Password );
-    mp_lab_IP->setMaximumWidth(40);
-    mp_lab_port->setMaximumWidth(40);
+    mp_lab_IP->setMaximumWidth( 40 );
+    mp_lab_port->setMaximumWidth( 40 );
     mp_lab_name->setMaximumWidth( 40 );
     mp_lab_pwd->setMaximumWidth( 40 );
-    mp_line_IP->setMaximumWidth(100);
-    mp_line_port->setMaximumWidth(100);
+    mp_line_IP->setMaximumWidth( 100 );
+    mp_line_port->setMaximumWidth( 100 );
     mp_line_name->setMaximumWidth( 100 );
     mp_line_pwd->setMaximumWidth( 100 );
 
     //把窗口等分成4行
-    QHBoxLayout *h1 = new QHBoxLayout();
+    /*QHBoxLayout *h1 = new QHBoxLayout();
     QHBoxLayout *h2 = new QHBoxLayout();
     QHBoxLayout *h3 = new QHBoxLayout();
     QHBoxLayout *h4 = new QHBoxLayout();
@@ -140,10 +141,23 @@ void LoginDialog::init_login()
     v->addLayout( h5 );
     setLayout( v );
 
+
     resize( width(), height() );
     //resize( 200, 150 );
     //setMaximumSize( 200, 150 );
-
+    */
+    int n_width = width();
+    int n_height = height()-TITLE_BAR_HEIGHT;
+    mp_lab_IP->move( n_width/2, n_height/2-LOGIN_HEIGHT/2 );
+    mp_lab_port->move( n_width/2, n_height/2-LOGIN_HEIGHT*3/10 );
+    mp_lab_name->move( n_width/2, n_height/2-LOGIN_HEIGHT/10 );
+    mp_lab_pwd->move( n_width/2, n_height/2+LOGIN_HEIGHT/10 );
+    mp_line_IP->move( n_width/2+mp_lab_IP->width(), n_height/2-LOGIN_HEIGHT/2 );
+    mp_line_port->move( n_width/2+mp_lab_port->width(), n_height/2-LOGIN_HEIGHT*3/10 );
+    mp_line_name->move( n_width/2+mp_lab_name->width(), n_height/2-LOGIN_HEIGHT/10 );
+    mp_line_pwd->move( n_width/2+mp_lab_pwd->width(), n_height/2+LOGIN_HEIGHT/10 );
+    btn_Login->move( n_width/2, n_height/2+LOGIN_HEIGHT*3/10 );
+    btn_Cancle->move( n_width/2+btn_Login->width(), n_height/2+LOGIN_HEIGHT*3/10 );
 }
 
 void LoginDialog::init_title_bar()
@@ -160,16 +174,19 @@ void LoginDialog::init_title_bar()
 
 void LoginDialog::resizeEvent( QResizeEvent *event )
 {
-    //mp_login_title_bar->move( 0, 0 );
-    //mp_login_title_bar->resize( width(), TITLE_BAR_HEIGHT );
-    /*mp_lab_IP->move( 0, 0 );
-    mp_lab_port->move( 0, 30 );
-    mp_lab_name->move( 0, 60 );
-    mp_lab_pwd->move( 0, 90 );
-    mp_line_IP->move( 0, 120 );
-    mp_line_port->move( 0, 150 );
-    mp_line_name->move( 0, 180 );
-    mp_line_pwd->move( 0, 210 );
+    int n_width = width();
+    int n_height = height()-TITLE_BAR_HEIGHT;
+
+    /*mp_lab_IP->move( n_width/2, n_height/2-LOGIN_HEIGHT/2 );
+    mp_lab_port->move( n_width/2, n_height/2-LOGIN_HEIGHT*3/10 );
+    mp_lab_name->move( n_width/2, n_height/2-LOGIN_HEIGHT/10 );
+    mp_lab_pwd->move( n_width/2, n_height/2+LOGIN_HEIGHT/10 );
+    mp_line_IP->move( n_width/2+mp_lab_IP->width(), n_height/2-LOGIN_HEIGHT/2 );
+    mp_line_port->move( n_width/2+mp_lab_port->width(), n_height/2-LOGIN_HEIGHT*3/10 );
+    mp_line_name->move( n_width/2+mp_lab_name->width(), n_height/2-LOGIN_HEIGHT/10 );
+    mp_line_pwd->move( n_width/2+mp_lab_pwd->width(), n_height/2-LOGIN_HEIGHT/10 );
+    btn_Login->move( n_width/2, n_height/2+LOGIN_HEIGHT*3/10 );
+    btn_Cancle->move( n_width/2+btn_Login->width(), n_height/2+LOGIN_HEIGHT*3/10 );
     */
 }
 

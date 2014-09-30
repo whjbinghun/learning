@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>PanRailTest</class>
+ <widget class="QMainWindow" name="PanRailTest">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1060</width>
+    <height>731</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>PanRailTest</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="WndPanRail" name="id_widget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>100</y>
+      <width>300</width>
+      <height>400</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QWidget" name="id_pan_widget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>520</x>
+      <y>100</y>
+      <width>220</width>
+      <height>160</height>
+     </rect>
+    </property>
+    <widget class="QPushButton" name="id_btn_lefttop">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>60</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>左上</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="id_btn_top">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>10</y>
+       <width>60</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>上</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="id_btn_righttop">
+     <property name="geometry">
+      <rect>
+       <x>150</x>
+       <y>10</y>
+       <width>60</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>右上</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="id_btn_left">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>60</y>
+       <width>60</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>左</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="id_btn_middle">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>60</y>
+       <width>60</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>PushButton</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="id_btn_right">
+     <property name="geometry">
+      <rect>
+       <x>150</x>
+       <y>60</y>
+       <width>60</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>右</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="id_btn_leftbottom">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>110</y>
+       <width>60</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>左下</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="id_btn_bottom">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>110</y>
+       <width>60</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>下</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="id_btn_rightbottom">
+     <property name="geometry">
+      <rect>
+       <x>150</x>
+       <y>110</y>
+       <width>60</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>右下</string>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1060</width>
+     <height>23</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>WndPanRail</class>
+   <extends>QWidget</extends>
+   <header>wndpanrail.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

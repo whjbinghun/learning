@@ -35,8 +35,8 @@ void TitleBar::create_widget()
     //图像标签--logo
     mp_label_icon = new QLabel( this );
     QPixmap objPixmap( ":image/res/caption_logo.bmp" );
-    QBitmap mask = objPixmap.createMaskFromColor( QColor( 255, 255, 255 ), Qt::MaskInColor );
-    objPixmap.setMask( mask );
+    //QBitmap mask = objPixmap.createMaskFromColor( QColor( 255, 255, 255 ), Qt::MaskInColor );
+    //objPixmap.setMask( mask );
     mp_label_icon->setPixmap( objPixmap.scaled( TITLE_H*4, TITLE_H ) );
     mp_label_icon->setMinimumSize( mp_label_icon->sizeHint() );
 

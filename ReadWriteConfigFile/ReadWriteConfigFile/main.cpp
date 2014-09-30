@@ -183,7 +183,25 @@ bool LoadColumnJson()
             "isShow": true
         }
     ]
-}*/
+}
+
+//读方式
+ {
+        QSettings set( str, QSettings::IniFormat );
+        set.setIniCodec( "GB2312" );
+        QString str_hao = set.value( "zu/hao").toString();
+        qDebug() << str_hao;
+    }
+    //写方式，格式是GB2312
+    {
+        QSettings set( str, QSettings::IniFormat );
+        set.setIniCodec( "GB2312" );
+        set.beginGroup( "zu" );
+        set.setValue( "hao", "组号测试" );
+        set.endGroup();
+    }
+
+*/
 
 int main(int argc, char *argv[])
 {
