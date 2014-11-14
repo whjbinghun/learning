@@ -4,7 +4,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = AttributeWidget
 
-//include(../common.pri)
+#//include(../common.pri)
 INCLUDEPATH += $$PWD
 DEPENDPATH += $$PWD
 

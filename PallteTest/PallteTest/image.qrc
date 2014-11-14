@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/image">
+        <file>image/hor_palette.bmp</file>
+        <file>image/palette.bmp</file>
+    </qresource>
+</RCC>
