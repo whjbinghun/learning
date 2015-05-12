@@ -1,0 +1,27 @@
+#-------------------------------------------------
+#
+# Project created by QtCreator 2015-03-19T09:59:46
+#
+#-------------------------------------------------
+
+QT       += core gui
+
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
+TARGET = WndMatrixCnd
+TEMPLATE = app
+
+
+SOURCES += main.cpp\
+        wndmatrixcnd.cpp \
+    wndmatrixalarmlist.cpp \
+    wndcolor.cpp \
+    dlgalarmcondition.cpp
+
+HEADERS  += wndmatrixcnd.h \
+    wndmatrixalarmlist.h \
+    wndcolor.h \
+    dlgalarmcondition.h
+
+FORMS    += wndmatrixcnd.ui \
+    dlgalarmcondition.ui
