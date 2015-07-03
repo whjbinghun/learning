@@ -1,10 +1,10 @@
-#include "test.h"
+#include "fullshowtest.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    Test w;
+    FullShowTest w;
     w.show();
 
     return a.exec();

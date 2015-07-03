@@ -1,6 +1,6 @@
 <ui version="4.0">
- <class>Test</class>
- <widget class="QWidget" name="Test" >
+ <class>DlgSetAnaAndAlarm</class>
+ <widget class="QDialog" name="DlgSetAnaAndAlarm" >
   <property name="geometry" >
    <rect>
     <x>0</x>
@@ -10,7 +10,7 @@
    </rect>
   </property>
   <property name="windowTitle" >
-   <string>Test</string>
+   <string>DlgSetAnaAndAlarm</string>
   </property>
  </widget>
  <layoutDefault spacing="6" margin="11" />

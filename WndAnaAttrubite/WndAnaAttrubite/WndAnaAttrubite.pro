@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2015-01-05T15:53:24
+# Project created by QtCreator 2015-05-13T11:27:00
 #
 #-------------------------------------------------
 
@@ -8,13 +8,13 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = untitled
+TARGET = WndAnaAttrubite
 TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        test.cpp
+        wndanaattrubite.cpp
 
-HEADERS  += test.h
+HEADERS  += wndanaattrubite.h
 
-FORMS    += test.ui
+FORMS    += wndanaattrubite.ui

@@ -6,6 +6,7 @@ TestStyleSheet::TestStyleSheet(QWidget *parent) :
     ui(new Ui::TestStyleSheet)
 {
     ui->setupUi(this);
+
 }
 
 TestStyleSheet::~TestStyleSheet()

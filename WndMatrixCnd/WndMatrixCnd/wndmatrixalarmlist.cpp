@@ -195,6 +195,16 @@ void WndMatrixAlarmList::slot_color_dialog()
     }
 }
 
+void WndMatrixAlarmList::slot_martix_ana_info( QString str_matrix_name, QColor clr_matrix )
+{
+   MartixInfo matrix_info;
+   matrix_info.clr_martix = clr_matrix;
+   matrix_info.str_martix_name = str_matrix_name;
+   matrix_info.str_martix_alarm_cnd = str_matrix_name + " > 0";
+    add_martix_tab( matrix_info );
+    m_list_martix_alarm.push_back( &matrix_info );
+}
+
 void WndMatrixAlarmList::update_martix_alarm_list()
 {
     clear_martix_alarm_tab();

@@ -6,6 +6,10 @@ TestKeyPress::TestKeyPress(QWidget *parent) :
     ui(new Ui::TestKeyPress)
 {
     ui->setupUi(this);
+
+
+
+
 }
 
 TestKeyPress::~TestKeyPress()

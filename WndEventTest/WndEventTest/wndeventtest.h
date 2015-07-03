@@ -2,6 +2,7 @@
 #define WNDEVENTTEST_H
 
 #include <QWidget>
+#include <QMouseEvent>
 
 namespace Ui {
 class WndEventTest;
@@ -15,6 +16,9 @@ public:
     explicit WndEventTest(QWidget *parent = 0);
     ~WndEventTest();
 
+    virtual bool event( QEvent *p_event );
+    virtual void mousePressEvent( QMouseEvent *p_event );
+    void paintEvent( QPaintEvent *p_event );
 private:
     Ui::WndEventTest *ui;
 };

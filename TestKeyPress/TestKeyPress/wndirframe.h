@@ -8,10 +8,12 @@ class WndIrFrame : public QFrame
     Q_OBJECT
 public:
     explicit WndIrFrame(QWidget *parent = 0);
-
+    ~WndIrFrame();
+    void keyPressEvent( QKeyEvent *event );
 signals:
 
 public slots:
+private:
 
 };
 

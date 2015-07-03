@@ -13,8 +13,10 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        treewidgettest.cpp
+        treewidgettest.cpp \
+    wndalarmcndlist.cpp
 
-HEADERS  += treewidgettest.h
+HEADERS  += treewidgettest.h \
+    wndalarmcndlist.h
 
 FORMS    += treewidgettest.ui

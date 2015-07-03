@@ -14,7 +14,12 @@ class PasswdModify : public QDialog
 public:
     explicit PasswdModify(QWidget *parent = 0);
     ~PasswdModify();
+public:
 
+    void init_connect();
+public slots:
+    void slot_sure();
+    void slot_cancel();
 private:
     Ui::PasswdModify *ui;
 };

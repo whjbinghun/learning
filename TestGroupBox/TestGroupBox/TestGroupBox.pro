@@ -13,8 +13,10 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        testgroupbox.cpp
+        testgroupbox.cpp \
+    wndgroupbox.cpp
 
-HEADERS  += testgroupbox.h
+HEADERS  += testgroupbox.h \
+    wndgroupbox.h
 
 FORMS    += testgroupbox.ui

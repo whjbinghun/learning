@@ -2,6 +2,11 @@
 #define TREEWIDGETTEST_H
 
 #include <QWidget>
+#include <QTreeWidget>
+#include <QTreeWidgetItem>
+#include <QCheckBox>
+#include <QHBoxLayout>
+#include <QMessageBox>
 
 namespace Ui {
 class TreeWidgetTest;
@@ -17,6 +22,9 @@ public:
 
 private:
     Ui::TreeWidgetTest *ui;
+
+    QTreeWidget *treeWidget;
+        QHBoxLayout *hLayout;
 };
 
 #endif // TREEWIDGETTEST_H

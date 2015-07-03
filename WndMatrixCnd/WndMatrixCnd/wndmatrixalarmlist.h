@@ -56,6 +56,7 @@ public slots:
     void slot_tab_martix_item_change( QTableWidgetItem *current, QTableWidgetItem *previous );
 
     void slot_color_dialog();
+    void slot_martix_ana_info( QString str_matrix_name, QColor clr_matrix );
 private:
     int mn_cur_martix_list_row;//选中的当前行
     int mn_eq_width;

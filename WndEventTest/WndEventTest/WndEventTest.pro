@@ -13,8 +13,12 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        wndeventtest.cpp
+        wndeventtest.cpp \
+    wndwidgetone.cpp \
+    wndwidgettwo.cpp
 
-HEADERS  += wndeventtest.h
+HEADERS  += wndeventtest.h \
+    wndwidgetone.h \
+    wndwidgettwo.h
 
 FORMS    += wndeventtest.ui

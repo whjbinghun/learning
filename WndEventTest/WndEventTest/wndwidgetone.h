@@ -2,6 +2,7 @@
 #define WNDWIDGETONE_H
 
 #include <QWidget>
+#include <QMouseEvent>
 
 class WndWidgetOne : public QWidget
 {
@@ -9,9 +10,13 @@ class WndWidgetOne : public QWidget
 public:
     explicit WndWidgetOne(QWidget *parent = 0);
 
+    void paintEvent( QPaintEvent *p_event );
+    void resizeEvent( QResizeEvent *p_event );
+    void mousePressEvent( QMouseEvent *p_event );
 signals:
 
 public slots:
+private:
 
 };
 

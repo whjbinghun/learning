@@ -1,20 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>AlarmingPicturePreview</class>
- <widget class="QWidget" name="AlarmingPicturePreview" >
-  <property name="geometry" >
+ <widget class="QWidget" name="AlarmingPicturePreview">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>1222</width>
+    <height>919</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>AlarmingPicturePreview</string>
   </property>
+  <widget class="QWidget" name="id_widget_time" native="true">
+   <property name="geometry">
+    <rect>
+     <x>350</x>
+     <y>370</y>
+     <width>801</width>
+     <height>61</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QCalendarWidget" name="id_calendar_widget">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>560</y>
+     <width>331</width>
+     <height>211</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QFrame" name="id_frame_image">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>270</y>
+     <width>331</width>
+     <height>281</height>
+    </rect>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+  </widget>
+  <widget class="QFrame" name="id_frame_ir">
+   <property name="geometry">
+    <rect>
+     <x>350</x>
+     <y>30</y>
+     <width>401</width>
+     <height>331</height>
+    </rect>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+  </widget>
+  <widget class="QFrame" name="id_frame_vi">
+   <property name="geometry">
+    <rect>
+     <x>750</x>
+     <y>30</y>
+     <width>401</width>
+     <height>331</height>
+    </rect>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+  </widget>
+  <widget class="QLabel" name="id_label_group_list">
+   <property name="geometry">
+    <rect>
+     <x>14</x>
+     <y>27</y>
+     <width>330</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>设备组列表</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QListWidget" name="id_list_group">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>60</y>
+     <width>330</width>
+     <height>200</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QTableWidget" name="id_tablewidget_preset_alarm_list">
+   <property name="geometry">
+    <rect>
+     <x>350</x>
+     <y>440</y>
+     <width>421</width>
+     <height>331</height>
+    </rect>
+   </property>
+  </widget>
  </widget>
- <layoutDefault spacing="6" margin="11" />
- <pixmapfunction></pixmapfunction>
+ <layoutdefault spacing="6" margin="11"/>
  <resources/>
  <connections/>
 </ui>

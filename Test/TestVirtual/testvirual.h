@@ -2,6 +2,7 @@
 #define TESTVIRUAL_H
 
 #include <QMainWindow>
+#include "airplane.h"
 
 namespace Ui {
 class TestVirual;

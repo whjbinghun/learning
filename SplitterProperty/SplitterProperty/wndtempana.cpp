@@ -29,4 +29,10 @@ void WndTempAna::init_splitter()
     mp_splitter_main->setStretchFactor( 1, 1 );
     mp_splitter_main->setWindowTitle( QObject::tr( "Splitter" ) );
     mp_splitter_main->show();
+    connect( mp_splitter_main, SIGNAL(splitterMoved(int,int)), this, SLOT( slot_splitter_move( int, int ) ) );
+}
+
+void WndTempAna::slot_splitter_move( int pos, int index )
+{
+
 }

@@ -2,6 +2,7 @@
 #define TESTGROUPBOX_H
 
 #include <QWidget>
+#include "wndgroupbox.h"
 
 namespace Ui {
 class TestGroupBox;

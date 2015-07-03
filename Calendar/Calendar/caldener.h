@@ -2,6 +2,7 @@
 #define CALDENER_H
 
 #include <QMainWindow>
+#include <QDate>
 
 namespace Ui {
 class Caldener;
@@ -15,6 +16,8 @@ public:
     explicit Caldener(QWidget *parent = 0);
     ~Caldener();
 
+public slots:
+    void slot_clicked( QDate date );
 private:
     Ui::Caldener *ui;
 };

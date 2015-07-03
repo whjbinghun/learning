@@ -13,8 +13,12 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        testvirual.cpp
+        testvirual.cpp \
+    airplane.cpp \
+    modela.cpp
 
-HEADERS  += testvirual.h
+HEADERS  += testvirual.h \
+    airplane.h \
+    modela.h
 
 FORMS    += testvirual.ui

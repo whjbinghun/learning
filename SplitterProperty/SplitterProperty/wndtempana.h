@@ -17,6 +17,7 @@ public:
 signals:
 
 public slots:
+    void slot_splitter_move( int pos, int index );
 private:
     QSplitter *mp_splitter_main;
     WndChart *mp_wnd_chart;

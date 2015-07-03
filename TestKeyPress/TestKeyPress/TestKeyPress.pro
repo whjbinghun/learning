@@ -13,8 +13,12 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        testkeypress.cpp
+        testkeypress.cpp \
+    wndirframe.cpp \
+    wndviframe.cpp
 
-HEADERS  += testkeypress.h
+HEADERS  += testkeypress.h \
+    wndirframe.h \
+    wndviframe.h
 
 FORMS    += testkeypress.ui

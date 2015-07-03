@@ -30,6 +30,9 @@ void WndMatrixCnd::init_ctrl()
     ui->id_tablewidget_matrix_cnd->init_lab( ui->id_lab_martix_cnd );
 
     mp_alarm_cond_dlg = new DlgAlarmCondition( this );
+
+    connect( ui->id_ir_frame->get_matrix_widget(), SIGNAL(sig_matrix_ana_info(QString,QColor)), \
+             ui->id_tablewidget_matrix_cnd, SLOT( slot_martix_ana_info( QString, QColor ) ) );
 }
 
 void WndMatrixCnd::init_connect()

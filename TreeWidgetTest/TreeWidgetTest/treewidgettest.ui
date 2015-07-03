@@ -1,20 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>TreeWidgetTest</class>
- <widget class="QWidget" name="TreeWidgetTest" >
-  <property name="geometry" >
+ <widget class="QWidget" name="TreeWidgetTest">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>836</width>
+    <height>723</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>TreeWidgetTest</string>
   </property>
+  <widget class="QTreeWidget" name="id_treewidget_matrix">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>160</y>
+     <width>291</width>
+     <height>281</height>
+    </rect>
+   </property>
+   <column>
+    <property name="text">
+     <string>报警条件列表</string>
+    </property>
+   </column>
+   <item>
+    <property name="text">
+     <string>预置点报警条件</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>矩阵报警条件</string>
+    </property>
+   </item>
+  </widget>
  </widget>
- <layoutDefault spacing="6" margin="11" />
- <pixmapfunction></pixmapfunction>
+ <layoutdefault spacing="6" margin="11"/>
  <resources/>
  <connections/>
 </ui>
