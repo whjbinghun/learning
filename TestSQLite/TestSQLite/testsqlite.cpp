@@ -140,7 +140,7 @@ bool TestSQLite::creat_connection()
     query.exec( QObject::tr( "insert into student values (1,'陈刚', '6')" ) );
     query.exec( QObject::tr( "insert into student values (2,'王红', '7')" ) );
 
-    db.close();
+    //db.close();
     return true;
 }
 
