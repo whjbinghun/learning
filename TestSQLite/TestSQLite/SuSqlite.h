@@ -30,6 +30,7 @@ public:
     bool delete_data( int n_id );
     bool query_all_data();
     bool query_data( int n_id );
+    QMap<int, PersonInfo>& get_person_info();
 private:
     QSqlDatabase m_sql_db;
 
