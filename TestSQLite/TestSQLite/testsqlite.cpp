@@ -22,7 +22,7 @@ TestSQLite::TestSQLite(QWidget *parent) :
     mp_sql_model->setTable( "student" );
     mp_sql_model->setEditStrategy( QSqlTableModel::OnManualSubmit );
     mp_sql_model->select(); //选取整个表的所有行
-    // model->removeColumn(1); //不显示name属性列,如果这时添加记录，则该属性的值添加不上
+    mp_sql_model->removeColumn( 1 ); //不显示name属性列,如果这时添加记录，则该属性的值添加不上
     ui->id_tab_list->setModel( mp_sql_model );
     // ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);   //使其不可编辑
 
@@ -114,13 +114,18 @@ void TestSQLite::slot_query_sql_data()
 {
     QString str_name = ui->id_edit_name->text();
     mp_sql_model->setFilter( QObject::tr( "name = '%1' ").arg( str_name ) ); //根据姓名进行筛选
+    //mp_sql_model->setFilter( QObject::tr( "id > '%1' ").arg( 3 ) ); //根据id大于某个值进行筛选
     mp_sql_model->select(); //显示结果
+
+
 }
 
 void TestSQLite::slot_return_table()
 {
     mp_sql_model->setTable( "student" );   //重新关联表
     mp_sql_model->select();   //这样才能再次显示整个表的内容
+    mp_sql_model->removeColumn( 1 ); //不显示name属性列,如果这时添加记录，则该属性的值添加不上
+
 }
 
 bool TestSQLite::creat_connection()
@@ -129,12 +134,13 @@ bool TestSQLite::creat_connection()
     db.setDatabaseName( "database.db" );
     if( !db.open() ) return false;
     QSqlQuery query;
-    query.exec( QObject::tr( "create table student (id int primary key, name vchar)" ) );
+    query.exec( QObject::tr( "create table student (id int primary key, name vchar, month vchar)" ) );
 
-    query.exec( QObject::tr( "insert into student values (0,'刘明')" ) );
-    query.exec( QObject::tr( "insert into student values (1,'陈刚')" ) );
-    query.exec( QObject::tr( "insert into student values (2,'王红')" ) );
+    query.exec( QObject::tr( "insert into student values (0,'刘明', '5')" ) );
+    query.exec( QObject::tr( "insert into student values (1,'陈刚', '6')" ) );
+    query.exec( QObject::tr( "insert into student values (2,'王红', '7')" ) );
 
+    db.close();
     return true;
 }
 
