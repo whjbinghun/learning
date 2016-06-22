@@ -12,6 +12,11 @@ typedef struct _tagPersonInfo {
     int n_id;
     QString str_name;
     QString str_month;
+
+    _tagPersonInfo()
+        : n_id( -1 )
+        , str_name( "" )
+        , str_month( "" ) {}
 }PersonInfo;
 
 class SuSqlite
@@ -39,6 +44,7 @@ private:
     QString ms_sql_table_name;
 
     QMap<int, PersonInfo> m_map_person_info;
+    PersonInfo m_st_person_info;
 };
 
 #endif // SUSQLITE_H

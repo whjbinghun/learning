@@ -96,6 +96,8 @@ bool SuSqlite::query_all_data()
             m_map_person_info.insert( person_info.n_id, person_info );
         }
 
+        PersonInfo person_info;
+        m_st_person_info = person_info;
         return true;
     }
 
@@ -110,6 +112,12 @@ bool SuSqlite::query_data( int n_id )
     if( sql_query.exec( QObject::tr( str_query_data.toStdString().c_str() ) ) )   //尝试列出  表的所有记录
     {
         qDebug()<<"查询数据成功";
+        m_map_person_info.clear();
+        sql_query.first();
+        m_st_person_info.n_id = sql_query.value( 0 ).toInt();
+        m_st_person_info.str_name = sql_query.value( 1 ).toString();
+        m_st_person_info.str_month = sql_query.value( 2 ).toString();
+
         return true;
     }
 

@@ -160,7 +160,7 @@ void wndSqlite::insert_table_from_sql( int n_id, QString str_name )
 
 bool wndSqlite::creat_connection()
 {
-    mp_sqlite = new SuSqlite( "database.db" );
+    mp_sqlite = new SuSqlite( "../TestSqliteTableWidget/database.db" );
     if( mp_sqlite->open_sql() ) {
         qDebug()<<"数据库文件database.db打开成功";
     } else {
