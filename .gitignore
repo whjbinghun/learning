@@ -3,3 +3,6 @@
 */Debug/
 *.Debug
 *.Release
+*temp/
+
+
