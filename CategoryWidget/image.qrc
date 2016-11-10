@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>saleImage/goods_category_btn_normal.png</file>
+        <file>saleImage/goods_category_btn_press.png</file>
+        <file>saleImage/goods_category_btn_selected.png</file>
+    </qresource>
+</RCC>
