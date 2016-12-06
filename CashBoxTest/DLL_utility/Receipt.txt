@@ -1,0 +1,14 @@
+          Supper Market
+
+2016/9/14
+-Name----Unit----Price---Num---
+Apple    kg      6.00    12.00 
+Pear     kg      4.00    10.00 
+Orange   kg      8.00    10.00 
+-------------------------------
+Total:192.00
+       
+       Thank for your shopping!
+       
+       
+       
