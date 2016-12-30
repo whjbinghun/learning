@@ -18,8 +18,8 @@ WndImage::~WndImage()
 void WndImage::paintEvent(QPaintEvent *event)
 {
     QPainter draw;
-    draw.begin( this );
-    QString str_path =  QDir::currentPath()+"/8254.jpg";
-    draw.drawPixmap( 0, 0, QPixmap( str_path ));
+//    draw.begin( this );
+//    QString str_path =  QDir::currentPath()+"/8254.jpg";
+//    draw.drawPixmap( 0, 0, QPixmap( str_path ));
     draw.end();
 }

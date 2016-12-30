@@ -13,8 +13,14 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        wndimage.cpp
+        wndimage.cpp \
+    StandbyAdvertWidget.cpp
 
-HEADERS  += wndimage.h
+HEADERS  += wndimage.h \
+    StandbyAdvertWidget.h
 
-FORMS    += wndimage.ui
+FORMS    += wndimage.ui \
+    StandbyAdvertWidget.ui
+
+RESOURCES += \
+    images.qrc
